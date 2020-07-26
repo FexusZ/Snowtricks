@@ -28,7 +28,7 @@ class Client
     private $last_name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, options={"unique":true})
      */
     private $user_name;
 
@@ -36,6 +36,11 @@ class Client
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"unique":true})
+     */
+    private $email;
 
     public function getId(): ?int
     {
@@ -85,7 +90,19 @@ class Client
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = hash('sha512',$password);
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

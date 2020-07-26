@@ -4,20 +4,23 @@
 namespace App\Controller;
 
 
+use http\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
+use \App\Repository\ClientRepository;
+use \App\Entity\Client as ClientEntity;
 class HomeController extends AbstractController
 {
     /**
-     * @var Environment
+     * @var ClientRepository
      */
-    private $twig;
-    public function __construct(Environment $twig)
+    private $client;
+    public function __construct(ClientRepository $client)
     {
-        $this->twig = $twig;
+        $this->client = $client;
     }
 
     /**
@@ -26,6 +29,20 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return new Response($this->twig->render('pages/index.html.twig', ['current_menu' => 'index']));
+        /* Création d'un client
+        $client = new ClientEntity();
+        $client->setUserName('Fexus')
+            ->setFirstName('Jean-Sébastien')
+            ->setLastName('Neuhart')
+            ->setEmail('jseb.1999@outlook.fr')
+            ->setPassword('FexusTest')
+        ;
+        $this->em = $this->getDoctrine()->getManager();
+        $this->em->persist($client);
+        $this->em->flush();
+        */
+        $request = $this->client->connexion('Fexus', 'FexusTest');
+        dump($request);
+        return $this->render('pages/index.html.twig', ['current_menu' => 'index']);
     }
 }
