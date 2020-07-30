@@ -22,6 +22,10 @@
             <li class="nav-item {% if current_menu is defined and current_menu == 'figures.listes' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('figures.listes') }}">Listes des figures</a>
             </li>
+
+            <li class="nav-item {% if current_menu is defined and current_menu == 'figures.create' %}active{% endif %}">
+                <a class="nav-link" href="{{ path('figure.create') }}">Création de figure</a>
+            </li>
         </ul>
     </div>
     </nav>

@@ -19,6 +19,18 @@ class FiguresRepository extends ServiceEntityRepository
         parent::__construct($registry, Figures::class);
     }
 
+    public function findAllFigures()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT f, i
+            FROM App\Entity\Figures f
+            INNER JOIN App\entity\Image i
+            WHERE f.id = i.id_figure'
+        );
+        return $query->getResult();
+    }
     // /**
     //  * @return Figures[] Returns an array of Figures objects
     //  */

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+    {% for tab_row in tab_query %}
+        <div class="jumbotron text-center">
+            <h1> {{ tab_row.figure.figure }} </h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-center">
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        {% for image in tab_row.image %}
+                            {% if flag_first is not defined %}
+                                <div class="col-md-12 pb-4">
+                                    <img class='w-100' src='{{ asset('uploads') }}/{{ image.image }}'>
+                                </div>
+                                {% set flag_first = true %}
+
+                            {% else %}
+                                <div class="col-md-4">
+                                    <img class='w-100' src='{{ asset('uploads') }}/{{ image.image }}'>
+                                    <video class='w-100' src="{{ asset('uploads') }}/{{ image.image }}"></video>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%  endfor %}
+{% endblock %}
