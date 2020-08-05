@@ -15,6 +15,7 @@ use \App\Entity\Image;
 use \App\Entity\Video;
 use \App\Form\FigureType;
 
+
 class FigureController extends AbstractController
 {
     /**
@@ -53,7 +54,9 @@ class FigureController extends AbstractController
                 $em->persist($image);
                 $em->flush();
             }
-            return $this->redirectToRoute('figures.listes');
+            $this->addFlash('success', 'Figure modifié');
+
+            return $this->redirectToRoute('index');
         }
         return $this->render('pages/figures/edit.html.twig', ['current_menu' => 'figures.listes', 'form' => $form->createView()]);
     }
@@ -120,6 +123,8 @@ class FigureController extends AbstractController
                     $em->flush();
                 }
             }
+            $this->addFlash('success', 'Figure Créé');
+
 
             return $this->redirectToRoute('index');
         }
@@ -128,13 +133,45 @@ class FigureController extends AbstractController
     }
 
     /**
-     * @Route("/figure/edit/{id}", name="figure.delete", methods="DELETE")
-     * @param Figure $figure
+     *  @Route("/figure/edit/{id}", name="figure.delete", methods="DELETE")
+     * @param Figures $figure
+     * @return mixed
      */
-    public function delete(Figure $figure)
+    public function delete(Figures $figure, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($figure);
+        if ($this->isCsrfTokenValid('delete' . $figure->getId(), $request->get('_token'))) {
 
+            $image = $this->getDoctrine()->getRepository(Image::class);
+            $video = $this->getDoctrine()->getRepository(Video::class);
+
+            $row['row_image'] = $image->findBy(['id_figure' => $figure->getId()]);
+            $row['row_video'] = $video->findBy(['id_figure' => $figure->getId()]);
+
+            foreach ($row as $type => $row_type) {
+                foreach ($row_type as $file) {
+                    if ($type == 'row_image')
+                        unlink ('uploads/'.$file->getImage());
+                    if ($type == 'row_video')
+                        unlink ('uploads/'.$file->getVideo());
+                }
+            }
+
+
+            $em = $this->getDoctrine()->getManager();
+
+            $Image = $em->getPartialReference('App\entity\Image', array('id_figure' => $figure->getId()));
+            $em->remove($Image);
+            $em->flush();
+
+            $Video = $em->getPartialReference('App\entity\Video', array('id_figure' => $figure->getId()));
+            $em->remove($Video);
+            $em->flush();
+
+            $em->remove($figure);
+            $em->flush();
+            $this->addFlash('success', 'Figure supprimé');
+        }
+
+        return $this->redirectToRoute('index');
     }
 }

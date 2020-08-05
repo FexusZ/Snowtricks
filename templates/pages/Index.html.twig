@@ -3,17 +3,27 @@
     <div class="w-100 h-100  mb-5">
         <div class="home-bg">
             <div class="container">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 <div class="pb-4 centered">
                     <h1>SnowTricks</h1>
                 </div>
             </div>
             <div class="bottom-right">
                 <a href="#liste_figure" class="a">
-                    <i class="fa fa-arrow-down fa-2" aria-hidden="true"></i>
+                    <i class="fa fa-large fa-arrow-down fa-2" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
     </div>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="container" id="liste_figure">
         <div class="row">
             {% if tab_query is not empty %}
@@ -29,21 +39,35 @@
                                     {% endif %}
                                 </a>
                                 <div class="card-body">
-                                    <a href="{{ path('figure.show', {'id': tab_row.figure.id}) }}" class="btn btn-outline-success btn-sm btn-trick">
-                                        {{ tab_row.figure.figure }}
-                                    </a>
-                                    <a href="{{ path('figure.edit', {'id': tab_row.figure.id}) }}" class="btn btn-outline-success btn-sm btn-trick">
-                                        Editer
-                                    </a>
-                                    <form action="{{ path('figure.delete', {'id': tab_row.figure.id}) }}">
-                                        <input type="hidden" name="_method" value="delete">
-                                        <button class="btn btn-outline-danger btn-sm btn-trick">
-                                            Supprimer
-                                        </button>
-                                    </form>
-                                    <a href="{{ path('figure.edit', {'id': tab_row.figure.id}) }}" class="btn btn-outline-danger btn-sm btn-trick">
-                                        Supprimer
-                                    </a>
+                                    <div class="container">
+                                        <div class="row text-center">
+                                            <div class="col-xs-4 m-1">
+                                                <a href="{{ path('figure.show', {'id': tab_row.figure.id}) }}" class="btn btn-outline-success btn-sm btn-trick">
+                                                    {{ tab_row.figure.figure }}
+                                                </a>
+                                            </div>
+
+                                            <div class="col-xs-4 m-1">
+                                                <a href="{{ path('figure.edit', {'id': tab_row.figure.id}) }}" class="btn btn-outline-info btn-sm btn-trick">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-xs-4 m-1">
+                                                <form action="{{ path('figure.delete', {'id': tab_row.figure.id}) }}" method='POST' onsubmit="return confirm('Supprimer la figures ?')">
+                                                    <input type="hidden" name="_method" value="delete">
+                                                    <button class="btn btn-outline-danger btn-sm btn-trick">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tab_row.figure.id) }}">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -56,9 +80,6 @@
                     </div>
                 </div>
             {% endif %}
-            <div class="card">
-                <i class="fa fa-arrow-top"></i>
-            </div>
         </div>
     </div>
 {% endblock %}

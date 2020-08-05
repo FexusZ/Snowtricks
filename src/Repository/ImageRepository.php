@@ -19,6 +19,9 @@ class ImageRepository extends ServiceEntityRepository
         parent::__construct($registry, Image::class);
     }
 
+    public function delete($id_figure) {
+
+    }
     // /**
     //  * @return Image[] Returns an array of Image objects
     //  */
