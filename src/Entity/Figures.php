@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Repository\FiguresRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Image;
 /**
  * @ORM\Entity(repositoryClass=FiguresRepository::class)
  */
@@ -31,6 +33,11 @@ class Figures
      * @ORM\Column(type="integer")
      */
     private $groupe;
+
+    /**
+     * @OneToMany(targetEntity="Image", mappedBy="id_figure")
+     */
+    private $image;
 
     public function getId(): ?int
     {
@@ -71,5 +78,10 @@ class Figures
         $this->groupe = $groupe;
 
         return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 }

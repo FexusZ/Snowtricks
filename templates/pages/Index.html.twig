@@ -1,6 +1,48 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="jumbotron text-center">
-        <h1> Bienvenue sur l'accueil</h1>
+    <div class="w-100 h-100  mb-5">
+        <div class="home-bg">
+            <div class="container">
+                <div class="col-md-12 pb-4 centered">
+                    <h1>SnowTricks</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            {% for tab_row in tab_query %}
+                <div class="col-md-4 mb-sm-5">
+                    <div class="container">
+                        <div class="row bottom-list">
+                            <div class="card">
+                                <a href="{{ path('figure.show', {'id': tab_row.figure.id}) }}">
+                                    {% if tab_row.image.image is defined %}
+                                        <img class='w-100' src='{{ asset('uploads') }}/{{ tab_row.image.image }}'>
+                                    {% else %}
+                                        <img class='w-100' src='{{ asset('uploads') }}/default.jpg'>
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="card-body ">
+                                <a href="{{ path('figure.show', {'id': tab_row.figure.id}) }}" class="btn btn-outline-success btn-sm btn-trick">
+                                    {{ tab_row.figure.figure }}
+                                </a>
+
+                                <a href="{{ path('figure.edit', {'id': tab_row.figure.id}) }}" class="btn btn-outline-success btn-sm btn-trick">
+                                    Editer
+                                </a>
+
+                                <a href="{{ path('figure.edit', {'id': tab_row.figure.id}) }}" class="btn btn-outline-danger btn-sm btn-trick">
+                                    Supprimer
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%  endfor %}
+        </div>
     </div>
 {% endblock %}

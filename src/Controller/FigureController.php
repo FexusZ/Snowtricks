@@ -27,36 +27,16 @@ class FigureController extends AbstractController
     }
 
     /**
-     * @Route("figures/liste", name="figures.listes")
-     * @return Response
-     */
-
-    public function index(): Response
-    {
-        $figures = $this->getDoctrine()->getRepository(Figures::class);
-        $image = $this->getDoctrine()->getRepository(Image::class);
-        $query_figure = $figures->findAll();
-        foreach ($query_figure as $row_figure) {
-            $row_image = $image->findOneBy(['id_figure' => $row_figure->getId()]);
-
-            $tab_query[$row_figure->getId()] = array('figure' => $row_figure, 'image' => $row_image);
-        }
-
-        dump($tab_query);
-        return new Response($this->twig->render('pages/figures/listes.html.twig', ['current_menu' => 'figures.listes', 'tab_query' => $tab_query]));
-    }
-
-    /**
+     * @param Figures $figure
      * @Route("/figure/edit/{id}", name="figure.edit")
      * @param Request $request
      * @return Response
      */
-    public function edit(Request $request): Response
+    public function edit(Figures $figure, Request $request): Response
     {
-        $figure = new Figures;
+        dump($figure->getImage());
         $image = new Image;
         $form = $this->createForm(FigureType::class, $figure);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -79,17 +59,19 @@ class FigureController extends AbstractController
     }
 
     /**
+     * @param Figures $figure
      * @Route("/figure/show/{id}", name="figure.show")
-     * @param Request $request
      * @return Response
      */
     public function show(Figures $figure): Response
     {
         $image = $this->getDoctrine()->getRepository(Image::class);
+        $video = $this->getDoctrine()->getRepository(Video::class);
 
         $row_image = $image->findBy(['id_figure' => $figure->getId()]);
+        $row_video = $video->findBy(['id_figure' => $figure->getId()]);
 
-        $tab_query[$figure->getId()] = array('figure' => $figure, 'image' => $row_image);
+        $tab_query[$figure->getId()] = array('figure' => $figure, 'image' => $row_image, 'video' => $row_video);
 
 
         if (isset($tab_query))
@@ -113,32 +95,30 @@ class FigureController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($figure);
             $em->flush();
-            $files = $request->files->get('figure')['images']['image'];
+            dump($request->files->get('figure')['images']['image'], $request->files->get('figure')['videos']['video']);
+            $files['image'] = $request->files->get('figure')['images']['image'];
+            $files['video'] = $request->files->get('figure')['videos']['video'];
             $upload_file = $this->getParameter('upload_directory');
-            foreach ($files as $file) {
-                $image = new Image;
+            foreach ($files as $file_type => $file_content) {
+                foreach ($file_content as $file) {
+                    if ($file_type === 'image')
+                        $upload = new Image;
+                    elseif ($file_type === 'video')
+                        $upload = new Video;
 
-                $file_name = md5(uniqid()). '.'.$file->guessExtension();
-                $file->move($upload_file, $file_name);
-                $image->setImage($file_name);
-                $image->setIdFigure($figure->getId());
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($image);
-                $em->flush();
-            }
+                    $file_name = md5(uniqid()) . '.' . $file->guessExtension();
+                    $file->move($upload_file, $file_name);
 
-            $files = $request->files->get('figure')['videos']['video'];
-            $upload_file = $this->getParameter('upload_directory');
-            foreach ($files as $file) {
-                $video = new Video;
+                    if ($file_type === 'image')
+                        $upload->setImage($file_name);
+                    elseif ($file_type === 'video')
+                        $upload->setVideo($file_name);
 
-                $file_name = md5(uniqid()). '.'.$file->guessExtension();
-                $file->move($upload_file, $file_name);
-                $video->setVideo($file_name);
-                $video->setIdFigure($figure->getId());
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($video);
-                $em->flush();
+                    $upload->setIdFigure($figure->getId());
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($upload);
+                    $em->flush();
+                }
             }
 
             return $this->redirectToRoute('figures.listes');

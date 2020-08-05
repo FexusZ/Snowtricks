@@ -12,6 +12,12 @@ use Twig\Environment;
 
 use \App\Repository\ClientRepository;
 use \App\Entity\Client as ClientEntity;
+
+use \App\Entity\Figures;
+use \App\Entity\Image;
+use \App\Entity\Video;
+use \App\Form\FigureType;
+
 class HomeController extends AbstractController
 {
     /**
@@ -29,20 +35,15 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        /* Création d'un client
-        $client = new ClientEntity();
-        $client->setUserName('Fexus')
-            ->setFirstName('Jean-Sébastien')
-            ->setLastName('Neuhart')
-            ->setEmail('jseb.1999@outlook.fr')
-            ->setPassword('FexusTest')
-        ;
-        $this->em = $this->getDoctrine()->getManager();
-        $this->em->persist($client);
-        $this->em->flush();
-        */
-        $request = $this->client->connexion('Fexus', 'FexusTest');
-        dump($request);
-        return $this->render('pages/index.html.twig', ['current_menu' => 'index']);
+        $figures = $this->getDoctrine()->getRepository(Figures::class);
+        $image = $this->getDoctrine()->getRepository(Image::class);
+        $query_figure = $figures->findAll();
+        foreach ($query_figure as $row_figure) {
+            $row_image = $image->findOneBy(['id_figure' => $row_figure->getId()]);
+
+            $tab_query[$row_figure->getId()] = array('figure' => $row_figure, 'image' => $row_image);
+        }
+
+        return $this->render('pages/index.html.twig', ['current_menu' => 'index', 'tab_query' => $tab_query]);
     }
 }

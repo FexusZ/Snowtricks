@@ -3,5 +3,9 @@
     <div class="jumbotron text-center">
         <h1> Edition de figure</h1>
     </div>
-    {{ form(form) }}
+    <div class="container mt-5">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

@@ -32,12 +32,12 @@ class Video
         return $this->id;
     }
 
-    public function getVideo(): ?string
+    public function getVideo()
     {
         return $this->video;
     }
 
-    public function setVideo(string $video): self
+    public function setVideo($video): self
     {
         $this->video = $video;
 
