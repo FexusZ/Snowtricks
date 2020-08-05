@@ -28,7 +28,7 @@ class FigureController extends AbstractController
 
     /**
      * @param Figures $figure
-     * @Route("/figure/edit/{id}", name="figure.edit")
+     * @Route("/figure/edit/{id}", name="figure.edit", methods="POST||GET")
      * @param Request $request
      * @return Response
      */
@@ -121,9 +121,20 @@ class FigureController extends AbstractController
                 }
             }
 
-            return $this->redirectToRoute('figures.listes');
+            return $this->redirectToRoute('index');
         }
 
         return $this->render('pages/figures/create.html.twig', ['current_menu' => 'figures.create', 'form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/figure/edit/{id}", name="figure.delete", methods="DELETE")
+     * @param Figure $figure
+     */
+    public function delete(Figure $figure)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($figure);
+
     }
 }

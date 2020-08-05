@@ -3,40 +3,69 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
     {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+<div class="container mt-6">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" class="text-center card p-5 radius-3 bg-dark text-white">
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+
+                <h1 class="h3 mb-3 mt-3 font-weight-normal ">Please sign in</h1>
+                <label for="inputEmail" class="mt-5">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control radius-3  mt-3" required autofocus>
+                <label for="inputPassword" class="mt-5">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control radius-3 mt-3" required>
+
+
+                <button class="btn btn-lg btn-primary radius-3 mt-6" type="submit">
+                    Sign in
+                </button>
+            </form>
         </div>
-    #}
+    </div>
+</div>
+#}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    <body class="text-center">
+
+
+        <form class="form-signin mt-6">
+
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Log-In</h1>
+            <label for="inputEmail" class="m-3">Email</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+            <label for="inputPassword" class="m-3">Mot de passe</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+            <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Sign in</button>
+
+        </form>
+    </body>
 {% endblock %}
+
+{% block footer %}
+    <footer class="footer-absolute footer">
+        <div class="container ">
+            <div class="card p-4 radius-3 bg-dark text-white pr-5 pl-5 text-center">
+                <span>Designed by Fexus.</span>
+            </div>
+        </div>
+    </footer>
+
+{% endblock %}
+
+
+

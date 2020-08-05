@@ -38,6 +38,7 @@ class HomeController extends AbstractController
         $figures = $this->getDoctrine()->getRepository(Figures::class);
         $image = $this->getDoctrine()->getRepository(Image::class);
         $query_figure = $figures->findAll();
+        $tab_query = array();
         foreach ($query_figure as $row_figure) {
             $row_image = $image->findOneBy(['id_figure' => $row_figure->getId()]);
 

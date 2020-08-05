@@ -4,40 +4,36 @@
 
     {% for tab_row in tab_query %}
         <div class="container">
-            <div class="row">
-                <div class="container">
-                    <div class="row">
-                        {% for image in tab_row.image %}
-                            {% if flag_first is not defined %}
-                                <div class="container">
-                                    <div class="col-md-12 pb-4">
-                                        <h1 class="top-center"> {{ tab_row.figure.figure }} </h1>
-                                        <img class='w-100' src='{{ asset('uploads') }}/{{ image.image }}'>
-                                    </div>
-                                </div>
-                                {% set flag_first = true %}
-
-                            {% else %}
-                                <div class="col-md-4">
+            <div class="card mt-4">
+                <div class="row">
+                    {% for image in tab_row.image %}
+                        {% if flag_first is not defined %}
+                            <div class="container">
+                                <div class="col-md-12 pb-4">
+                                    <h1 class="top-center"> {{ tab_row.figure.figure }} </h1>
                                     <img class='w-100' src='{{ asset('uploads') }}/{{ image.image }}'>
                                 </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-
-                    <div class="row">
-                        {% for video in tab_row.video %}
-                            <div class="col-md-4">
-                                <embed type="video/webm" class='h-auto w-auto'
-                                       src="{{ asset('uploads') }}/{{ video.video }}"
-                                >
                             </div>
-                        {% endfor %}
-                    </div>
+                            {% set flag_first = true %}
 
-
+                        {% else %}
+                            <div class="col-md-4">
+                                <img class='w-100' src='{{ asset('uploads') }}/{{ image.image }}'>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    {% for video in tab_row.video %}
+                        <div class="col-md-4">
+                            <embed type="video/webm" class='h-auto w-auto'
+                                   src="{{ asset('uploads') }}/{{ video.video }}"
+                            >
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
+
         </div>
     {%  endfor %}
 {% endblock %}
