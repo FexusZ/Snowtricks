@@ -22,7 +22,8 @@ class ClientController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->redirectToRoute('/');
+        dump($lastUsername, $authenticationUtils);
+        return $this->redirectToRoute('index');
     }
 
     /**

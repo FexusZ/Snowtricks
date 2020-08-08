@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\VideoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=VideoRepository::class)
@@ -23,9 +25,11 @@ class Video
     private $video;
 
     /**
+     * @ManyToOne(targetEntity="Figure", inversedBy="id")
+     * @JoinColumn(name="id", referencedColumnName="figure_id")
      * @ORM\Column(type="integer")
      */
-    private $id_figure;
+    protected $id_figure;
 
     public function getId(): ?int
     {

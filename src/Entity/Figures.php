@@ -6,6 +6,10 @@ use App\Repository\FiguresRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Video;
+use Image;
+
+
 /**
  * @ORM\Entity(repositoryClass=FiguresRepository::class)
  */
@@ -34,12 +38,14 @@ class Figures
     private $groupe;
 
     /**
-     * @OneToMany(targetEntity="Image", mappedBy="id_figure")
+     * @OneToMany(targetEntity="Image", mappedBy="id_figure", indexBy="id_figure")
+     * @JoinColumn(name="figure_id", referencedColumnName="id")
      */
     private $image;
 
     /**
-     * @OneToMany(targetEntity="Video", mappedBy="id_figure")
+     * @OneToMany(targetEntity="Video", mappedBy="id_figure", indexBy="id_figure")
+     * @JoinColumn(name="figure_id", referencedColumnName="id")
      */
     private $video;
 
