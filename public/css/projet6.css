@@ -1,5 +1,22 @@
 .jumbotron{
-    background-color: #ddd !important;
+     background-color: #ddd !important;
+ }
+
+.plus{
+    width: 20px;
+    margin-bottom: 1rem;
+}
+
+.video>.form-group{
+    margin-bottom:0rem !important;
+}
+
+#figure_videos>.form-group{
+    margin-bottom:0rem !important;
+}
+
+#figure_videos>.form-group>.form-group{
+    margin-bottom:0rem !important;
 }
 
 .btn-trick {

@@ -94,35 +94,42 @@ class FigureController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($figure);
             $em->flush();
-            dump($request->files->get('figure')['images']['image'], $request->files->get('figure')['videos']['video']);
-            $files['image'] = $request->files->get('figure')['images']['image'];
-            $files['video'] = $request->files->get('figure')['videos']['video'];
             $upload_file = $this->getParameter('upload_directory');
-            foreach ($files as $file_type => $file_content) {
-                foreach ($file_content as $file) {
-                    if ($file_type === 'image')
-                        $upload = new Image;
-                    elseif ($file_type === 'video')
-                        $upload = new Video;
 
-                    $file_name = md5(uniqid()) . '.' . $file->guessExtension();
-                    $file->move($upload_file, $file_name);
+            foreach ($request->files->get('figure')['images']['image'] as $file) {
+                $upload = new Image;
 
-                    if ($file_type === 'image')
-                        $upload->setImage($file_name);
-                    elseif ($file_type === 'video')
-                        $upload->setVideo($file_name);
+                $file_name = md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move($upload_file, $file_name);
 
-                    $upload->setIdFigure($figure->getId());
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($upload);
-                    $em->flush();
-                }
+                $upload->setImage($file_name);
+
+                $upload->setIdFigure($figure->getId());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($upload);
+                $em->flush();
             }
+            foreach ($request->request->get('figure')['videos']['video'] as $file) {
+                if (strpos('https://www.youtube.com') !== false) {
+
+                } elseif (strpos('https://www.youtube.com') !== false) {
+
+                } else {
+
+                }
+                $upload = new Video;
+
+                $upload->setVideo($file);
+
+                $upload->setIdFigure($figure->getId());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($upload);
+                $em->flush();
+            }
+
             $this->addFlash('success', 'Figure Créé');
 
 
@@ -149,9 +156,9 @@ class FigureController extends AbstractController
 
             foreach ($row as $type => $row_type) {
                 foreach ($row_type as $file) {
-                    if ($type == 'row_image')
+                    if ($type == 'row_image' && file_exists('uploads/'.$file->getImage()))
                         unlink ('uploads/'.$file->getImage());
-                    if ($type == 'row_video')
+                    if ($type == 'row_video' && file_exists('uploads/'.$file->getVideo()))
                         unlink ('uploads/'.$file->getVideo());
                 }
             }

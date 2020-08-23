@@ -49,6 +49,14 @@ class Figures
      */
     private $video;
 
+    /**
+     *
+     */
+    CONST GROUP = [
+        'Groupe 1',
+        'Groupe 2',
+    ];
+
     public function getId(): ?int
     {
         return $this->id;

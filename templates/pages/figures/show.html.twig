@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
-
     {% for tab_row in tab_query %}
-        <div class="container">
+        <div class="container w-75">
             <div class="card mt-4">
                 <div class="row">
+                    {% if tab_row.image is not empty %}
+                        <div class="col-md-6">
                     {% for image in tab_row.image %}
                         {% if flag_first is not defined %}
                             <div class="container">
@@ -22,18 +22,35 @@
                             </div>
                         {% endif %}
                     {% endfor %}
-                </div>
-                <div class="row">
-                    {% for video in tab_row.video %}
-                        <div class="col-md-4">
-                            <embed type="video/webm" class='h-auto w-auto'
-                                   src="{{ asset('uploads') }}/{{ video.video }}"
-                            >
+                    </div>
+                    {% endif %}
+                    {% if tab_row.video is not empty %}
+                        <div class="col-md-6">
+                            <div style="border-top-left-radius: 0.625rem;border-top-right-radius: 0.625rem;">
+                                <div id="carouselExampleControls" class="carousel slide" >
+                                <div class="carousel-inner">
+                                    {% for video in tab_row.video %}
+                                            <div class="carousel-item {% if flag_video is not defined %}active{% endif %}">
+                                                <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ video.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                                            </div>
+                                            {% set flag_video = true %}
+                                    {% endfor %}
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                                </div>
+                            </div>
                         </div>
-                    {% endfor %}
+                    {% endif %}
+
                 </div>
             </div>
-
         </div>
     {%  endfor %}
 {% endblock %}
