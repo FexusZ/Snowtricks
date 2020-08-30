@@ -7,7 +7,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
 use Symfony\Component\Routing\Annotation\Route;
 
 use \App\Entity\Figures;
@@ -19,23 +18,13 @@ use \App\Form\FigureType;
 class FigureController extends AbstractController
 {
     /**
-     * @var Environment
-     */
-    private $twig;
-    public function __construct(Environment $twig)
-    {
-        $this->twig = $twig;
-    }
-
-    /**
      * @param Figures $figure
-     * @Route("/figure/edit/{id}", name="figure.edit", methods="POST||GET")
+     * @Route("/figure/edit/{id<[0-9]+>}", name="figure.edit", methods="POST||GET")
      * @param Request $request
      * @return Response
      */
     public function edit(Figures $figure, Request $request): Response
     {
-        dump($figure->getImage());
         $image = new Image;
         $form = $this->createForm(FigureType::class, $figure);
         $form->handleRequest($request);
@@ -43,7 +32,6 @@ class FigureController extends AbstractController
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($figure);
-            $em->flush();
             $files = $request->files->get('figure')['images']['image'];
             $upload_file = $this->getParameter('upload_directory');
             foreach ($files as $file) {
@@ -52,18 +40,19 @@ class FigureController extends AbstractController
                 $image->setImage($file_name);
                 $image->setIdFigure($figure->getId());
                 $em->persist($image);
-                $em->flush();
             }
+            $em->flush();
             $this->addFlash('success', 'Figure modifié');
 
             return $this->redirectToRoute('index');
         }
+
         return $this->render('pages/figures/edit.html.twig', ['current_menu' => 'figures.listes', 'form' => $form->createView()]);
     }
 
     /**
      * @param Figures $figure
-     * @Route("/figure/show/{id}", name="figure.show")
+     * @Route("/figure/show/{id<[0-9]+>}", name="figure.show")
      * @return Response
      */
     public function show(Figures $figure): Response
@@ -76,9 +65,6 @@ class FigureController extends AbstractController
 
         $tab_query[$figure->getId()] = array('figure' => $figure, 'image' => $row_image, 'video' => $row_video);
 
-
-        if (isset($tab_query))
-            dump($tab_query);
         return $this->render('pages/figures/show.html.twig', ['current_menu' => 'figures.listes', 'tab_query' => $tab_query]);
     }
 
@@ -110,12 +96,11 @@ class FigureController extends AbstractController
                 $upload->setIdFigure($figure->getId());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($upload);
-                $em->flush();
             }
             foreach ($request->request->get('figure')['videos']['video'] as $file) {
-                if (strpos('https://www.youtube.com') !== false) {
+                if (strpos('https://www.youtube.com', $file) !== false) {
 
-                } elseif (strpos('https://www.youtube.com') !== false) {
+                } elseif (strpos('https://www.youtube.com', $file) !== false) {
 
                 } else {
 
@@ -127,8 +112,8 @@ class FigureController extends AbstractController
                 $upload->setIdFigure($figure->getId());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($upload);
-                $em->flush();
             }
+            $em->flush();
 
             $this->addFlash('success', 'Figure Créé');
 
@@ -140,7 +125,7 @@ class FigureController extends AbstractController
     }
 
     /**
-     *  @Route("/figure/edit/{id}", name="figure.delete", methods="DELETE")
+     *  @Route("/figure/edit/{id<[0-9]+>}", name="figure.delete", methods="DELETE")
      * @param Figures $figure
      * @return mixed
      */
@@ -151,28 +136,17 @@ class FigureController extends AbstractController
             $image = $this->getDoctrine()->getRepository(Image::class);
             $video = $this->getDoctrine()->getRepository(Video::class);
 
-            $row['row_image'] = $image->findBy(['id_figure' => $figure->getId()]);
-            $row['row_video'] = $video->findBy(['id_figure' => $figure->getId()]);
-
-            foreach ($row as $type => $row_type) {
-                foreach ($row_type as $file) {
-                    if ($type == 'row_image' && file_exists('uploads/'.$file->getImage()))
-                        unlink ('uploads/'.$file->getImage());
-                    if ($type == 'row_video' && file_exists('uploads/'.$file->getVideo()))
-                        unlink ('uploads/'.$file->getVideo());
-                }
+            foreach ($image->findBy(['id_figure' => $figure->getId()]) as $file) {
+                if (file_exists('uploads/'.$file->getImage()))
+                    unlink ('uploads/'.$file->getImage());
             }
-
-
             $em = $this->getDoctrine()->getManager();
 
             $Image = $em->getPartialReference('App\entity\Image', array('id_figure' => $figure->getId()));
             $em->remove($Image);
-            $em->flush();
 
             $Video = $em->getPartialReference('App\entity\Video', array('id_figure' => $figure->getId()));
             $em->remove($Video);
-            $em->flush();
 
             $em->remove($figure);
             $em->flush();

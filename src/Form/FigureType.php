@@ -23,13 +23,14 @@ class FigureType extends AbstractType
             ])
             ->add('images', ImageType::class, [
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'label' => 'Images : '
             ])
             ->add('videos', VideoType::class, [
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'label' => 'Vidéos : '
             ])
-            ->add('save', SubmitType::class)
         ;
     }
 

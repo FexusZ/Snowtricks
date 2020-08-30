@@ -24,16 +24,16 @@
                     {% endfor %}
                     </div>
                     {% endif %}
-                    {% if tab_row.video is not empty %}
-                        <div class="col-md-6">
+                    <div class="col-md-6">
+                    {% if tab_row.video is not empty and tab_row.video|length > 1 %}
                             <div style="border-top-left-radius: 0.625rem;border-top-right-radius: 0.625rem;">
                                 <div id="carouselExampleControls" class="carousel slide" >
                                 <div class="carousel-inner">
                                     {% for video in tab_row.video %}
-                                            <div class="carousel-item {% if flag_video is not defined %}active{% endif %}">
-                                                <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ video.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
-                                            </div>
-                                            {% set flag_video = true %}
+                                        <div class="carousel-item {% if flag_video is not defined %}active{% endif %}">
+                                            <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ video.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                                        </div>
+                                        {% set flag_video = true %}
                                     {% endfor %}
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -46,9 +46,10 @@
                             </a>
                                 </div>
                             </div>
-                        </div>
+                    {% else %}
+                    <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ tab_row.video.0.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
                     {% endif %}
-
+                    </div>
                 </div>
             </div>
         </div>

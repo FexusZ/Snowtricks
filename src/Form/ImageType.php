@@ -15,7 +15,8 @@ class ImageType extends AbstractType
         $builder
             ->add('image', FileType::class, [
                 'multiple' => true,
-                'label' => ' '
+                'label' => false,
+                'attr' => ["lang" => "fr"]
             ])
         ;
     }

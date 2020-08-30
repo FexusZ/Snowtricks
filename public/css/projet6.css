@@ -4,7 +4,6 @@
 
 .plus{
     width: 20px;
-    margin-bottom: 1rem;
 }
 
 .video>.form-group{
@@ -176,3 +175,7 @@ body {
     border-radius: 0.25rem;
     padding:5px;
 }
+
+$custom-file-text: (
+fr: "Parcourir",
+);
