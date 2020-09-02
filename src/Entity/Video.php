@@ -25,8 +25,6 @@ class Video
     private $video;
 
     /**
-     * @ManyToOne(targetEntity="Figure", inversedBy="id")
-     * @JoinColumn(name="id", referencedColumnName="figure_id")
      * @ORM\Column(type="integer")
      */
     protected $id_figure;

@@ -63,7 +63,7 @@ class FigureController extends AbstractController
         $row_image = $image->findBy(['id_figure' => $figure->getId()]);
         $row_video = $video->findBy(['id_figure' => $figure->getId()]);
 
-        $tab_query[$figure->getId()] = array('figure' => $figure, 'image' => $row_image, 'video' => $row_video);
+        $tab_query = array('figure' => $figure, 'image' => $row_image, 'video' => $row_video);
 
         return $this->render('pages/figures/show.html.twig', ['current_menu' => 'figures.listes', 'tab_query' => $tab_query]);
     }
@@ -97,15 +97,16 @@ class FigureController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($upload);
             }
+            
             foreach ($request->request->get('figure')['videos']['video'] as $file) {
-                if (strpos('https://www.youtube.com', $file) !== false) {
-
-                } elseif (strpos('https://www.youtube.com', $file) !== false) {
-
-                } else {
-
-                }
                 $upload = new Video;
+                if (strpos($file, 'https://www.youtube.com/embed') !== false) {
+                    $upload->setVideo($file);
+                } elseif (strpos($file, 'https://www.dailymotion.com/embed') !== false) {
+                    $upload->setVideo($file);
+                } else {
+                    $this->addFlash('error', 'La vidéo : '.$file. ', ne conviens pas.');
+                }
 
                 $upload->setVideo($file);
 
@@ -150,7 +151,7 @@ class FigureController extends AbstractController
 
             $em->remove($figure);
             $em->flush();
-            $this->addFlash('success', 'Figure supprimé');
+            $this->addFlash('info', 'Figure supprimé');
         }
 
         return $this->redirectToRoute('index');

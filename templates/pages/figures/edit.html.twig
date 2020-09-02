@@ -1,13 +1,28 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <script src="{{ asset('js/projet6.js') }}"></script>
+{% endblock %}
 {% block body %}
     <div class="jumbotron text-center">
         <h1> Edition de figure</h1>
     </div>
     <div class="container mt-5">
-        <div class="card">
         {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
+        {{ form_row(form.figure) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.groupe) }}
+        {{ form_row(form.images) }}
+        <div class="video">
+            {{ form_row(form.videos) }}
+            <div class="text-center">
+                <legend class="col-form-label">Ajouter des vidéos : <img src="{{ asset("uploads") }}/plus.png" class="plus"></legend>
+            </div>
         </div>
+        
+        <div class="text-right">
+            <input type="submit" class="btn btn-success" value="Modifier la figure">
+        </div>
+        {{ form_end(form) }}
     </div>
 {% endblock %}

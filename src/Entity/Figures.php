@@ -38,18 +38,6 @@ class Figures
     private $groupe;
 
     /**
-     * @OneToMany(targetEntity="Image", mappedBy="id_figure", indexBy="id_figure")
-     * @JoinColumn(name="figure_id", referencedColumnName="id")
-     */
-    private $image;
-
-    /**
-     * @OneToMany(targetEntity="Video", mappedBy="id_figure", indexBy="id_figure")
-     * @JoinColumn(name="figure_id", referencedColumnName="id")
-     */
-    private $video;
-
-    /**
      *
      */
     CONST GROUP = [
@@ -91,20 +79,15 @@ class Figures
         return $this->groupe;
     }
 
+    public function getGroupeText(): ?string
+    {
+        return self::GROUP[$this->groupe];
+    }
+
     public function setGroupe(int $groupe): self
     {
         $this->groupe = $groupe;
 
         return $this;
-    }
-
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    public function getVideo()
-    {
-        return $this->video;
     }
 }

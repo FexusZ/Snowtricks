@@ -1,5 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    <div>
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
     <div class="w-100 h-100  mb-5">
         <div class="home-bg">
             <div class="container">
@@ -19,24 +32,21 @@
             </div>
         </div>
     </div>
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success text-center">
-            {{ message }}
-        </div>
-    {% endfor %}
     <div class="container" id="liste_figure">
         <div class="row">
             {% if tab_query is not empty %}
                 {% for tab_row in tab_query %}
                     <div class="col-md-4 mb-sm-5 ">
                         <div class="container pt-2">
-                            <div class="card card-list">
+                            <div class="card card-list rounded-app">
                                 <a href="{{ path('figure.show', {'id': tab_row.figure.id}) }}">
+                                    <img class='w-100 rounded-app image-height'
                                     {% if tab_row.image.image is defined %}
-                                        <img class='w-100' src='{{ asset('uploads') }}/{{ tab_row.image.image }}'>
+                                         src='{{ asset('uploads') }}/{{ tab_row.image.image }}'
                                     {% else %}
-                                        <img class='w-100' src='{{ asset('uploads') }}/default.jpg'>
+                                        src='{{ asset('uploads') }}/default.jpg'
                                     {% endif %}
+                                    >
                                 </a>
                                 <div class="card-body">
                                     <div class="container">
@@ -46,7 +56,6 @@
                                                     {{ tab_row.figure.figure }}
                                                 </a>
                                             </div>
-
                                             <div class="col-xs-4 m-1">
                                                 <a href="{{ path('figure.edit', {'id': tab_row.figure.id}) }}" class="btn btn-outline-info btn-sm btn-trick">
                                                     <i class="fa fa-edit"></i>
@@ -65,9 +74,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
                         </div>

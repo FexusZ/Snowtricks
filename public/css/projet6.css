@@ -179,3 +179,11 @@ body {
 $custom-file-text: (
 fr: "Parcourir",
 );
+
+.rounded-app{
+    border-radius: 1rem !important;
+}
+
+.image-height{
+    height: 12rem;
+}
