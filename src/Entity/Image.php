@@ -25,9 +25,10 @@ class Image
     private $image;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Figures::class, inversedBy="images")
+     * @ORM\JoinColumn(nullable=false)
      */
-    protected $id_figure;
+    private $id_figure;
 
     public function  __construct()
     {
@@ -51,12 +52,12 @@ class Image
         return $this;
     }
 
-    public function getIdFigure(): ?int
+    public function getIdFigure(): ?Figures
     {
         return $this->id_figure;
     }
 
-    public function setIdFigure(int $id_figure): self
+    public function setIdFigure(?Figures $id_figure): self
     {
         $this->id_figure = $id_figure;
 

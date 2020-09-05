@@ -25,9 +25,10 @@ class Video
     private $video;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Figures::class, inversedBy="videos")
+     * @ORM\JoinColumn(nullable=false)
      */
-    protected $id_figure;
+    private $id_figure;
 
     public function getId(): ?int
     {
@@ -46,12 +47,12 @@ class Video
         return $this;
     }
 
-    public function getIdFigure(): ?int
+    public function getIdFigure(): ?Figures
     {
         return $this->id_figure;
     }
 
-    public function setIdFigure(int $id_figure): self
+    public function setIdFigure(?Figures $id_figure): self
     {
         $this->id_figure = $id_figure;
 

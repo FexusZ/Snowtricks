@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -19,16 +21,6 @@ class Client implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $first_name;
-
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $last_name;
-
-    /**
      * @ORM\Column(type="string", length=255, options={"unique":true})
      */
     private $user_name;
@@ -43,33 +35,19 @@ class Client implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Figures::class, mappedBy="id_client", orphanRemoval=true)
+     */
+    private $figures;
+
+    public function __construct()
+    {
+        $this->figures = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->first_name;
-    }
-
-    public function setFirstName(string $first_name): self
-    {
-        $this->first_name = $first_name;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->last_name;
-    }
-
-    public function setLastName(string $last_name): self
-    {
-        $this->last_name = $last_name;
-
-        return $this;
     }
 
     public function getUserName(): ?string
@@ -121,5 +99,36 @@ class Client implements UserInterface
         // you *may* need a real salt depending on your encoder
         // see section on salt below
         return null;
+    }
+
+    /**
+     * @return Collection|Figures[]
+     */
+    public function getFigures(): Collection
+    {
+        return $this->figures;
+    }
+
+    public function addFigure(Figures $figure): self
+    {
+        if (!$this->figures->contains($figure)) {
+            $this->figures[] = $figure;
+            $figure->setIdClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFigure(Figures $figure): self
+    {
+        if ($this->figures->contains($figure)) {
+            $this->figures->removeElement($figure);
+            // set the owning side to null (unless already changed)
+            if ($figure->getIdClient() === $this) {
+                $figure->setIdClient(null);
+            }
+        }
+
+        return $this;
     }
 }
