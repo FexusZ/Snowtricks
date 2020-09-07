@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Video;
 use Image;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -26,11 +27,13 @@ class Figures
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $figure;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $description;
 
@@ -50,7 +53,7 @@ class Figures
     private $videos;
 
     /**
-     * @ORM\ManyToOne(targetEntity=client::class, inversedBy="figures")
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="figures")
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_client;
