@@ -4,7 +4,11 @@ security:
             algorithm: auto
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                class: App\Entity\Client
+                property: email
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -12,12 +16,12 @@ security:
         main:
             anonymous: true
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\ClientAuthenticator
             logout:
-                path: app_logout
+                path: app.logout
                 # where to redirect after logout
                 # target: app_any_route
 

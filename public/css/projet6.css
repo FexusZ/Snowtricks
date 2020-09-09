@@ -187,3 +187,13 @@ fr: "Parcourir",
 .image-height{
     height: 12rem;
 }
+
+.alert{
+    margin-bottom: 0rem !important;
+}
+
+.btn-margin-edit{
+    margin-top : -65px;
+    z-index: 1000;
+    position:relative;
+}

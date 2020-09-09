@@ -8,8 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Video;
-use Image;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -43,12 +41,12 @@ class Figures
     private $groupe;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="id_figure", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="id_figure", orphanRemoval=true, cascade={"persist"})
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="id_figure", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="id_figure", orphanRemoval=true, cascade={"persist"})
      */
     private $videos;
 
@@ -57,6 +55,16 @@ class Figures
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_client;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     public function __construct()
     {
@@ -190,5 +198,37 @@ class Figures
         $this->id_client = $id_client;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function updateTimestamps()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt( new \DateTime(null, new \DateTimeZone('Europe/Paris')) );
+        }
+            $this->setUpdatedAt( new \DateTime(null, new \DateTimeZone('Europe/Paris')) );
     }
 }

@@ -23,7 +23,7 @@ class Client implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, options={"unique":true})
      */
-    private $user_name;
+    private $userName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,14 +50,20 @@ class Client implements UserInterface
         return $this->id;
     }
 
-    public function getUserName(): ?string
+    public function setId($id): self
     {
-        return $this->user_name;
+        $this->id = $id;
+        return $this;
     }
 
-    public function setUserName(string $user_name): self
+    public function getUsername(): ?string
     {
-        $this->user_name = $user_name;
+        return $this->userName;
+    }
+
+    public function setUsername(string $userName): self
+    {
+        $this->userName = $userName;
 
         return $this;
     }
@@ -69,7 +75,7 @@ class Client implements UserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = hash('sha512',$password);
+        $this->password = $password;
 
         return $this;
     }

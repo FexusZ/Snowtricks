@@ -1,42 +1,44 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+
+{% dump(app.user) %}
     <div class="container mt-4">  
         <div class="row justify-content-center">          
             <div class="col-md-10 col-md-offset-1 mb-4"> 
                 <div class="card">
                     <img class="card-img-top" 
-                    {% if tab_query.image.0.image is defined %}
-                        src="{{ asset('uploads') }}/{{ tab_query.image.0.image }}"
+                    {% if figure.images.0.image is defined %}
+                        src="{{ asset('uploads') ~ "/" ~ figure.images.0.image }}"
                     {% else %}
-                        src="{{ asset('uploads') }}/default.jpg"
+                        src="{{ asset('uploads') ~ "/default.jpg" }}"
                     {% endif %}
-
                     >
                     <div class="card-body">
-                        <ul class="list-inline trick-data">
+                        <h4 class="card-title"><strong> {{ figure.figure }}</strong></h4>
+                        <hr>
+                        <ul class="list-inline trick-data text-center">
                             <li class="list-inline-item">
-                                Par : {# {{ tab_query.figure.user }} #}
-                            </li> |           
-                            <li class="list-inline-item">
-                                Ajouté le {#{{ tab_query.figure.time_insert }} #}(<small>Mise à jour le : {# {{ tab_query.figure.time_update }} #}</small>)
-                            </li> |                            
-                            <li class="list-inline-item">
-                                Catégorie : {{ tab_query.figure.GroupeText }}
+                                Par : {{ figure.IdClient.Username }}
                             </li> |
+                            <li class="list-inline-item">
+                                Ajouté le {{ figure.createdAt|date('d-m-Y H:i') }} (<small>Mise à jour le :  {{ figure.updatedAt|date('d-m-Y H:i') }} </small>)
+                            </li>|
+                            <li class="list-inline-item">
+                                Catégorie : {{ figure.GroupeText }}
+                            </li>
                         </ul>
                         <hr>
-                        <h4 class="card-title"><strong> {{ tab_query.figure.figure }}</strong></h4>
-                        <hr>
+                        
                         <!-- Start Carousel -->
                             <div class="row">
-                                {% if tab_query.image is not empty %}
+                                {% if figure.images is not empty %}
                                     <div class="col-md-6">
                                         <div style="border-top-left-radius: 0.625rem;border-top-right-radius: 0.625rem;" class='h-100'>
                                             <div id="carouselExampleControls1" class="carousel slide h-100" >
                                                 <div class="carousel-inner h-100">
-                                                    {% for image in tab_query.image %}
+                                                    {% for image in figure.images %}
                                                         <div class="carousel-item h-100 {% if flag_image is not defined %}active{% endif %}">
-                                                            <embed class='d-block w-100 image-height' style="border-radius: 0.625rem;border:solid 1px;" src="{{ asset('uploads') }}/{{ image.image }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                                                            <embed class='d-block w-100 image-height' style="border-radius: 0.625rem;border:solid 1px;" src="{{ asset('uploads') ~ "/" ~ image.image }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
                                                         </div>
                                                         {% set flag_image = true %}
                                                     {% endfor %}
@@ -53,35 +55,17 @@
                                         </div>
                                     </div>
                                 {% endif %}
-                                      {#  {% if tab_query.image is not empty %}
-                                            <div class="col-md-6">
-                                                {% for image in tab_query.image %}
-                                                    {% if flag_first is not defined %}
-                                                        <div class="container">
-                                                            <div class="col-md-12 pb-4">
-                                                                <img class='w-100' src='{{ asset('uploads') }}/{{ image.image }}'>
-                                                            </div>
-                                                        </div>
-                                                        {% set flag_first = true %}
-                                                    {% else %}
-                                                        <div class="col-md-4">
-                                                            <img class='w-100' src='{{ asset('uploads') }}/{{ image.image }}'>
-                                                        </div>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                        {% endif %} #}
-                                {% if tab_query.image is empty %}
+
+                                {% if figure.images is empty %}
                                     <div class="col-md-12">
                                 {% else %}
                                     <div class="col-md-6">
                                 {% endif %}
-
-                                {% if tab_query.video is not empty and tab_query.video|length > 1 %}
+                                {% if figure.videos is not empty and figure.videos|length > 1 %}
                                     <div style="border-top-left-radius: 0.625rem;border-top-right-radius: 0.625rem;" class='h-100'>
                                         <div id="carouselExampleControls" class="carousel slide h-100" >
                                             <div class="carousel-inner h-100">
-                                                {% for video in tab_query.video %}
+                                                {% for video in figure.videos %}
                                                     <div class="carousel-item h-100 {% if flag_video is not defined %}active{% endif %}">
                                                         <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ video.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
                                                     </div>
@@ -99,8 +83,8 @@
                                         </div>
                                     </div>
                                 {% else %}
-                                    {% if tab_query.video is not empty %}
-                                        <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ tab_query.video.0.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                                    {% if figure.videos is not empty %}
+                                        <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ figure.videos.0.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
                                     {% endif %}
                                 {% endif %}
                                 </div>
@@ -108,7 +92,7 @@
                         <!-- End Carousel -->
                         <hr>
                         <h5 class="card-title">Description</h5>
-                        <p class="card-text text-justify">{{ tab_query.figure.description }}</p>                                    
+                        <p class="card-text text-justify text-break">{{ figure.description }}</p>                                    
                     </div>
                 </div>
                 <!--  End Trick -->

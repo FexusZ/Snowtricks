@@ -22,10 +22,25 @@ class ClientController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        dump($lastUsername, $authenticationUtils);
-        return $this->redirectToRoute('index');
+        return $this->render('security/login.html.twig', ['current_menu' => 'app.login', 'last_username' => $lastUsername, 'error' => $error]);
     }
 
+    /**
+     * @Route("/register", name="app.register")
+     */
+    public function register(AuthenticationUtils $authenticationUtils): Response
+    {
+        // if ($this->getUser()) {
+        //     return $this->redirectToRoute('target_path');
+        // }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+        dd($lastUsername, $authenticationUtils);
+        return $this->redirectToRoute('index');
+    }
     /**
      * @Route("/logout", name="app.logout")
      */

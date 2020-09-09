@@ -32,7 +32,6 @@ class Image
 
     public function  __construct()
     {
-        $this->id_figure = 1;
     }
 
     public function getId(): ?int
