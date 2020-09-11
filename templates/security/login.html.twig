@@ -3,29 +3,6 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    {#
-<div class="container mt-6">
-    <div class="row">
-        <div class="col-md-12">
-            <form method="post" class="text-center card p-5 radius-3 bg-dark text-white">
-
-
-                <h1 class="h3 mb-3 mt-3 font-weight-normal ">Please sign in</h1>
-                <label for="inputEmail" class="mt-5">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control radius-3  mt-3" required autofocus>
-                <label for="inputPassword" class="mt-5">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control radius-3 mt-3" required>
-
-
-                <button class="btn btn-lg btn-primary radius-3 mt-6" type="submit">
-                    Sign in
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
-#}
-
     <body class="text-center">
 
 
@@ -37,11 +14,12 @@
 
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app.logout') }}">Logout</a>
                 </div>
-            {% endif %}
-
-            <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            
+            {% else %}
+                
+            <img class="mb-4" src="{{ asset('uploads/snow_icon.png') }}" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Log-In</h1>
             <label for="email" class="m-3">Email</label>
             <input type="email" name='email' id="email" value='{{ last_username }}' class="form-control" placeholder="Email address" required="" autofocus="">
@@ -52,8 +30,15 @@
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"
             >
-            <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Sign in</button>
 
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>   
+
+            <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Sign in</button>
+            {% endif %}
         </form>
     </body>
 {% endblock %}

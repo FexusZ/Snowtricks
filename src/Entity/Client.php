@@ -43,6 +43,7 @@ class Client implements UserInterface
     public function __construct()
     {
         $this->figures = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -75,7 +76,7 @@ class Client implements UserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password =  $password;
 
         return $this;
     }

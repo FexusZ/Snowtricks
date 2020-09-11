@@ -17,6 +17,7 @@ use \App\Entity\Figures;
 use \App\Entity\Image;
 use \App\Entity\Video;
 use \App\Form\FigureType;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class HomeController extends AbstractController
 {

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,13 +80,11 @@ class FigureController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $figure = new Figures;
         $form = $this->createForm(FigureType::class, $figure);
-        $clientRepo = $em->getRepository('App:Client');
-        $client = $clientRepo->find(1);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $figure->setIdClient($client);
+            $figure->setIdClient($this->getUser());
             $figure->updateTimestamps();
 
 
@@ -101,7 +97,6 @@ class FigureController extends AbstractController
                 $file_name = md5(uniqid()) . '.' . $file->guessExtension();
                 $file->move($upload_file, $file_name);
                 $upload->setImage($file_name);
-                dump($upload);
                 $figure->addImage($upload);
             }
             

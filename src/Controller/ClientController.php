@@ -3,9 +3,14 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+use \App\Form\ClientType;
+use \App\Entity\Client as ClientEntity;
 
 class ClientController extends AbstractController
 {
@@ -14,9 +19,10 @@ class ClientController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            $this->addFlash('error', 'déjà connecté!');
+            return $this->redirectToRoute('index');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -28,18 +34,30 @@ class ClientController extends AbstractController
     /**
      * @Route("/register", name="app.register")
      */
-    public function register(AuthenticationUtils $authenticationUtils): Response
+    public function register(UserPasswordEncoderInterface $encoder, Request $request): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            $this->addFlash('error', 'déjà connecté!');
+            return $this->redirectToRoute('index');
+        }
+        $client = new ClientEntity;
 
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-        dd($lastUsername, $authenticationUtils);
-        return $this->redirectToRoute('index');
+        $form = $this->createForm(ClientType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            
+            $client->setPassword($encoder->encodePassword($client, $client->getPassword()));
+
+            $em->persist($client);
+            $em->flush();
+            $this->addFlash('success', 'Compte créé');
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('security/register.html.twig', ['current_menu' => 'app.register', 'form' => $form->createView()]);
     }
     /**
      * @Route("/logout", name="app.logout")
