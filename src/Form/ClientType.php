@@ -6,6 +6,7 @@ use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ClientType extends AbstractType
 {
@@ -14,6 +15,7 @@ class ClientType extends AbstractType
         $builder
             ->add('userName')
             ->add('password')
+            ->add('confirm_password', TextType::class,['mapped' => false])
             ->add('email')
         ;
     }

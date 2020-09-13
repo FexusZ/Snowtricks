@@ -40,6 +40,8 @@ class Client implements UserInterface
      */
     private $figures;
 
+    private $confirm_password;
+
     public function __construct()
     {
         $this->figures = new ArrayCollection();
@@ -77,6 +79,18 @@ class Client implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password =  $password;
+
+        return $this;
+    }
+
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirm_password;
+    }
+
+    public function setConfirmPassword(string $password): self
+    {
+        $this->confirm_password =  $confirm_password;
 
         return $this;
     }

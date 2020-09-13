@@ -12,7 +12,7 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success justify-content-between">
 
         <a class="navbar-brand" href="{{ path('index') }}">SnowTricks</a>
 
@@ -21,25 +21,26 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item {% if current_menu is defined and current_menu == 'index' %}active{% endif %}">
-                    <a class="nav-link" href="{{ path('index') }}">Accueil <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item {% if current_menu is defined and current_menu == 'figures.create' %}active{% endif %}">
-                    <a class="nav-link" href="{{ path('figure.create') }}">Création de figure</a>
-                </li>
-            </ul>
-
             {% if app.user %}
                 <div>
                     <a class="btn btn-dark" href="{{ path('app.logout') }}">Logout</a>
                 </div>
             {% else %}
-                <div>
-                    <a class="btn btn-dark" href="{{ path('app.login') }}">Login</a>
-                    <a class="btn btn-dark" href="{{ path('app.register') }}">Register</a>
-                </div>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item {% if current_menu is defined and current_menu == 'index' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('index') }}">Accueil <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item {% if current_menu is defined and current_menu == 'figures.create' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('figure.create') }}">Création de figure</a>
+                        </li>
+
+                        <li class="nav-item {% if current_menu is defined and current_menu == 'app.login' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('app.login') }}">Login</a>
+                        </li>
+                        <li class="nav-item {% if current_menu is defined and current_menu == 'app.register' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('app.register') }}">Register</a>
+                        </li>
+                    </ul>
             {% endif %}
 
         </div>
@@ -57,14 +58,14 @@
     {% endblock %}
     </body>
 
-    {% block footer %}
-        <footer class="footer footer-relative mb-5">
-            <div class="container ">
-                <div class="card p-4 radius-3 bg-dark text-white pr-5 pl-5 text-center">
-                    <span>Designed by Fexus.</span>
+    {# {% block footer %}
+            <footer class="footer footer-relative mb-5">
+                <div class="container ">
+                    <div class="card p-4 radius-3 bg-dark text-white pr-5 pl-5 text-center">
+                        <span>Designed by Fexus.</span>
+                    </div>
                 </div>
-            </div>
-        </footer>
-    {% endblock %}
+            </footer>
+        {% endblock %} #}
 
 </html>
