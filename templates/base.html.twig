@@ -12,7 +12,7 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success justify-content-between">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
 
         <a class="navbar-brand" href="{{ path('index') }}">SnowTricks</a>
 
@@ -21,34 +21,32 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            {% if app.user %}
-                <div>
-                    <a class="btn btn-dark" href="{{ path('app.logout') }}">Logout</a>
-                </div>
-            {% else %}
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item {% if current_menu is defined and current_menu == 'index' %}active{% endif %}">
-                            <a class="nav-link" href="{{ path('index') }}">Accueil <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item {% if current_menu is defined and current_menu == 'figures.create' %}active{% endif %}">
-                            <a class="nav-link" href="{{ path('figure.create') }}">Création de figure</a>
-                        </li>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item {% if current_menu is defined and current_menu == 'index' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('index') }}">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                {% if app.user %}
+                    <li class="nav-item {% if current_menu is defined and current_menu == 'figures.create' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('figure.create') }}">Création de figure</a>
+                    </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app.logout') }}">Logout</a>
+                    </li>
+                {% else %}
                         <li class="nav-item {% if current_menu is defined and current_menu == 'app.login' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('app.login') }}">Login</a>
                         </li>
                         <li class="nav-item {% if current_menu is defined and current_menu == 'app.register' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('app.register') }}">Register</a>
                         </li>
-                    </ul>
             {% endif %}
+            </ul>
 
         </div>
-
     </nav>
 
     {% block body %}    
-
     {% endblock %}
 
     {% block javascripts %}
@@ -57,15 +55,13 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     {% endblock %}
     </body>
-
     {# {% block footer %}
-            <footer class="footer footer-relative mb-5">
-                <div class="container ">
-                    <div class="card p-4 radius-3 bg-dark text-white pr-5 pl-5 text-center">
-                        <span>Designed by Fexus.</span>
-                    </div>
+        <footer class="footer footer-relative mb-5">
+            <div class="container ">
+                <div class="card p-4 radius-3 bg-dark text-white pr-5 pl-5 text-center">
+                    <span>Designed by Fexus.</span>
                 </div>
-            </footer>
-        {% endblock %} #}
-
+            </div>
+        </footer>
+    {% endblock %} #}
 </html>

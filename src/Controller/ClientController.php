@@ -32,34 +32,6 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="app.register")
-     */
-    public function register(UserPasswordEncoderInterface $encoder, Request $request): Response
-    {
-        if ($this->getUser()) {
-            $this->addFlash('error', 'déjà connecté!');
-            return $this->redirectToRoute('index');
-        }
-        $client = new ClientEntity;
-
-        $form = $this->createForm(ClientType::class, $client);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            
-            $client->setPassword($encoder->encodePassword($client, $client->getPassword()));
-
-            $em->persist($client);
-            $em->flush();
-            $this->addFlash('success', 'Compte créé');
-
-            return $this->redirectToRoute('index');
-        }
-
-        return $this->render('security/register.html.twig', ['current_menu' => 'app.register', 'form' => $form->createView()]);
-    }
-    /**
      * @Route("/logout", name="app.logout")
      */
     public function logout()

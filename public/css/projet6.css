@@ -18,20 +18,21 @@
     margin-bottom:0rem !important;
 }
 
-.btn-trick {
-    font-size: 1rem;
-}
+
 
 .bottom-list{
     border-radius: 0.75rem;
     background-color: rgba(190,190,190,0.5);
 }
-
-/* Bottom left text */
 .bottom-left {
     position: absolute;
     bottom: 8px;
     left: 16px;
+}
+.bottom-right{
+    position: absolute;
+    top: 95%;
+    left: 95%;
 }
 
 .top-center {
@@ -47,11 +48,7 @@
     left: 45%;
 }
 
-.bottom-right{
-    position: absolute;
-    top: 95%;
-    left: 95%;
-}
+
 
 .center{
     position: relative;
@@ -77,41 +74,6 @@
 
 .radius-3{
     border-radius: 3rem;
-}
-
-.footer-absolute{
-    position: absolute;
-    bottom: 20px;
-}
-
-@media screen and (max-width: 349px) {
-    .footer {
-        left: 10%;
-        right: 10%;
-    }
-}
-
-@media screen and (min-width: 350px) and (max-width: 600px) {
-    .footer {
-        left: 20%;
-        right: 20%;
-    }
-    .no-data {
-        left: 10%;
-        right: 10%;
-    }
-}
-
-@media screen and (min-width: 600px) {
-    .footer {
-        left: 30%;
-        right: 30%;
-    }
-
-    .no-data {
-        left: 20%;
-        right: 20%;
-    }
 }
 
 html,
@@ -215,4 +177,7 @@ fr: "Parcourir",
     margin-top : -65px;
     z-index: 1000;
     position:relative;
+}
+.btn-trick {
+    font-size: 1rem;
 }

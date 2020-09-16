@@ -71,7 +71,7 @@ class ClientAuthenticator extends AbstractFormLoginAuthenticator implements Pass
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException('Email ou mot de passe incorrect.');
         }
 
         return $user;
