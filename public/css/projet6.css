@@ -1,6 +1,10 @@
 .jumbotron{
      background-color: #ddd !important;
  }
+.registration {
+    margin-top: 10rem;
+    margin-bottom: 3rem;
+}
 
 .plus{
     width: 20px;
@@ -42,13 +46,17 @@
     right: 40%;
 }
 
-.centered {
+/*.centered {
     position: absolute;
     top: 50%;
     left: 45%;
+}*/
+
+.centered {
+    position: absolute;
+    top: 45%;
+    left: 25%;
 }
-
-
 
 .center{
     position: relative;
@@ -61,7 +69,7 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
     width: 100%;
-    height: 95vh;
+    height: 100vh;
 }
 
 .mb-6{
