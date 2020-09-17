@@ -6,10 +6,13 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Cet email est déjà utilisé")
  */
 class Client implements UserInterface
 {
@@ -20,18 +23,28 @@ class Client implements UserInterface
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, options={"unique":true})
+     /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci d'entrer votre prenom!")
      */
-    private $user_name;
+    private $first_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci d'entrer votre nom!")
+     */
+    private $last_name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci d'entrer un mot de passe!")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255, options={"unique":true})
+     * @Assert\NotBlank(message="Merci d'entrer votre Email!")
+     * @Assert\Email(message="Merci d'entrer un Email valide!")
      */
     private $email;
 
@@ -40,9 +53,17 @@ class Client implements UserInterface
      */
     private $figures;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+   
+
     public function __construct()
     {
         $this->figures = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -50,16 +71,39 @@ class Client implements UserInterface
         return $this->id;
     }
 
-    public function getUserName(): ?string
+    public function setId($id): self
     {
-        return $this->user_name;
+        $this->id = $id;
+        return $this;
     }
 
-    public function setUserName(string $user_name): self
+    public function getFirstName(): ?string
     {
-        $this->user_name = $user_name;
+        return $this->first_name;
+    }
+
+    public function setFirstName(string $first_name): self
+    {
+        $this->first_name = $first_name;
 
         return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->last_name;
+    }
+
+    public function setLastName(string $last_name): self
+    {
+        $this->last_name = $last_name;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function getPassword(): ?string
@@ -69,7 +113,7 @@ class Client implements UserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = hash('sha512',$password);
+        $this->password =  $password;
 
         return $this;
     }
@@ -128,6 +172,18 @@ class Client implements UserInterface
                 $figure->setIdClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

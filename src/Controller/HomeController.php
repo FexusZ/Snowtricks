@@ -17,6 +17,7 @@ use \App\Entity\Figures;
 use \App\Entity\Image;
 use \App\Entity\Video;
 use \App\Form\FigureType;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class HomeController extends AbstractController
 {
@@ -36,15 +37,27 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $figures = $this->getDoctrine()->getRepository(Figures::class);
-        $image = $this->getDoctrine()->getRepository(Image::class);
         $query_figure = $figures->findAll();
-        $tab_query = array();
-        foreach ($query_figure as $row_figure) {
-            $row_image = $image->findOneBy(['id_figure' => $row_figure->getId()]);
 
-            $tab_query[$row_figure->getId()] = array('figure' => $row_figure, 'image' => $row_image);
-        }
+        return $this->render('pages/index.html.twig', ['current_menu' => 'index', 'figures' => $query_figure]);
+    }
 
-        return $this->render('pages/index.html.twig', ['current_menu' => 'index', 'tab_query' => $tab_query]);
+    /**
+     * @Route("/fixture", name="fixture")
+     * @return Response
+     */
+    public function fixture(): Response
+    {
+        $client = new ClientEntity();
+        $client->setUsername('John Doe')
+        ->setEmail('johndoe@gmail.com')
+        // mdp = test
+        ->setPassword(' $argon2id$v=19$m=65536,t=4,p=1$TDhJYmlqcy5OQWppazNoRg$raFEzp5vdih+DL+9ocequVUBV7NsuHzq7iLmX1lIf2s');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($client);
+        $em->flush();
+
+        return $this->render('pages/index.html.twig', ['current_menu' => 'index', 'tab_query' => []]);
     }
 }
