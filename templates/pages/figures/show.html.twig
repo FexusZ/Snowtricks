@@ -1,102 +1,122 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-{% dump(app.user) %}
-    <div class="container mt-5">  
-        <div class="row justify-content-center">          
-            <div class="col-md-10 col-md-offset-1 mb-4"> 
-                <div class="card">
-                    <img class="card-img-top" 
-                    {% if figure.images.0.image is defined %}
-                        src="{{ asset('uploads') ~ "/" ~ figure.images.0.image }}"
-                    {% else %}
-                        src="{{ asset('uploads') ~ "/default.jpg" }}"
-                    {% endif %}
-                    >
-                    <div class="card-body">
-                        <h4 class="card-title"><strong> {{ figure.figure }}</strong></h4>
-                        <hr>
-                        <ul class="list-inline trick-data text-center">
-                            <li class="list-inline-item">
-                                Par : {{ figure.IdClient.Username }}
-                            </li> |
-                            <li class="list-inline-item">
-                                Ajouté le {{ figure.createdAt|date('d-m-Y H:i') }} (<small>Mise à jour le :  {{ figure.updatedAt|date('d-m-Y H:i') }} </small>)
-                            </li>|
-                            <li class="list-inline-item">
-                                Catégorie : {{ figure.GroupeText }}
-                            </li>
-                        </ul>
-                        <hr>
-                        
-                        <!-- Start Carousel -->
-                            <div class="row">
-                                {% if figure.images is not empty %}
-                                    <div class="col-md-6">
-                                        <div style="border-top-left-radius: 0.625rem;border-top-right-radius: 0.625rem;" class='h-100'>
-                                            <div id="carouselExampleControls1" class="carousel slide h-100" >
-                                                <div class="carousel-inner h-100">
-                                                    {% for image in figure.images %}
-                                                        <div class="carousel-item h-100 {% if flag_image is not defined %}active{% endif %}">
-                                                            <embed class='d-block w-100 image-height' style="border-radius: 0.625rem;border:solid 1px;" src="{{ asset('uploads') ~ "/" ~ image.image }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
-                                                        </div>
-                                                        {% set flag_image = true %}
-                                                    {% endfor %}
-                                                </div>
-                                                <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                                <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endif %}
-
-                                {% if figure.images is empty %}
-                                    <div class="col-md-12">
-                                {% else %}
-                                    <div class="col-md-6">
-                                {% endif %}
-                                {% if figure.videos is not empty and figure.videos|length > 1 %}
-                                    <div style="border-top-left-radius: 0.625rem;border-top-right-radius: 0.625rem;" class='h-100'>
-                                        <div id="carouselExampleControls" class="carousel slide h-100" >
+<div class="container mt-5">  
+    <div class="row justify-content-center">          
+        <div class="col-md-10 col-md-offset-1 mb-4"> 
+            <div class="card">
+                <img class="card-img-top" 
+                {% if figure.images.0.image is defined %}
+                    src="{{ asset('uploads') ~ "/" ~ figure.images.0.image }}"
+                {% else %}
+                    src="{{ asset('uploads') ~ "/default.jpg" }}"
+                {% endif %}
+                >
+                <div class="card-body">
+                    <h4 class="card-title"><strong> {{ figure.figure }}</strong></h4>
+                    
+                    <hr>
+                    <ul class="list-inline trick-data text-center">
+                        <li class="list-inline-item">
+                            Par : {{ figure.IdClient.Username }}
+                        </li> |
+                        <li class="list-inline-item">
+                            Ajouté le {{ figure.createdAt|date('d-m-Y H:i') }} (<small>Mise à jour le :  {{ figure.updatedAt|date('d-m-Y H:i') }} </small>)
+                        </li>|
+                        <li class="list-inline-item">
+                            Catégorie : {{ figure.GroupeText }}
+                        </li>
+                    </ul>
+                    <hr>
+                    
+                    <!-- Start Carousel -->
+                        <div class="row">
+                            {% if figure.images is not empty %}
+                                <div class="col-md-6 mb-figure-show">
+                                    <div class='h-100 image-border'>
+                                        <div id="carouselExampleControls1" class="carousel slide h-100" >
                                             <div class="carousel-inner h-100">
-                                                {% for video in figure.videos %}
-                                                    <div class="carousel-item h-100 {% if flag_video is not defined %}active{% endif %}">
-                                                        <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ video.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                                                {% for image in figure.images %}
+                                                    <div class="carousel-item h-100 {% if flag_image is not defined %}active{% endif %}">
+                                                        <embed class='d-block w-100 image-height' style="border-radius: 0.625rem;border:solid 1px;" src="{{ asset('uploads') ~ "/" ~ image.image }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
                                                     </div>
-                                                    {% set flag_video = true %}
+                                                    {% set flag_image = true %}
                                                 {% endfor %}
                                             </div>
-                                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                 <span class="sr-only">Previous</span>
                                             </a>
-                                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
                                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                 <span class="sr-only">Next</span>
                                             </a>
                                         </div>
                                     </div>
-                                {% else %}
-                                    {% if figure.videos is not empty %}
-                                        <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ figure.videos.0.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
-                                    {% endif %}
-                                {% endif %}
                                 </div>
+                            {% endif %}
+
+                            {% if figure.images is empty %}
+                                <div class="col-md-12">
+                            {% else %}
+                                <div class="col-md-6">
+                            {% endif %}
+                            {% if figure.videos is not empty and figure.videos|length > 1 %}
+                                <div style="border-top-left-radius: 0.625rem;border-top-right-radius: 0.625rem;" class='h-100'>
+                                    <div id="carouselExampleControls" class="carousel slide h-100" >
+                                        <div class="carousel-inner h-100">
+                                            {% for video in figure.videos %}
+                                                <div class="carousel-item h-100 {% if flag_video is not defined %}active{% endif %}">
+                                                    <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ video.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                                                </div>
+                                                {% set flag_video = true %}
+                                            {% endfor %}
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                {% if figure.videos is not empty %}
+                                    <embed class='d-block w-100 h-100' style="border-radius: 0.625rem;border:solid 1px;" src="{{ figure.videos.0.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                                {% endif %}
+                            {% endif %}
                             </div>
-                        <!-- End Carousel -->
-                        <hr>
-                        <h5 class="card-title">Description</h5>
-                        <p class="card-text text-justify text-break">{{ figure.description }}</p>                                    
-                    </div>
+                        </div>
+                    <!-- End Carousel -->
+                    {% if app.user %}
+                        <hr />
+                        <div class='d-flex'>
+                            <div class="ml-auto">
+                            <a href="{{ path('figure.edit', {'id': figure.id}) }}" class="btn btn-outline-info btn-sm btn-trick mr-2">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            </div>
+
+                            <form action="{{ path('figure.delete', {'id': figure.id}) }}" method='POST' onsubmit="return confirm('Supprimer la figures ?')">
+                                <input type="hidden" name="_method" value="delete">
+                                <button class="btn btn-outline-danger btn-sm btn-trick">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ figure.id) }}">
+                            </form>
+                        </div>
+                    {% endif %}
+
+                    <hr>
+                    <h5 class="card-title">Description</h5>
+                    <p class="card-text text-justify text-break">{{ figure.description }}</p>                                    
                 </div>
-                <!--  End Trick -->
-            </div>     
-        </div>           
-    </div>
+            </div>
+            <!--  End Trick -->
+        </div>     
+    </div>           
+</div>
 {% endblock %}

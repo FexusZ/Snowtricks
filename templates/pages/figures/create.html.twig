@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-    <script src="{{ asset('js/projet6.js') }}"></script>
+    <script src="{{ asset('js/figure.js') }}"></script>
 {% endblock %}
 {% block body %}
     <div class="jumbotron text-center mt-5">
@@ -21,7 +21,7 @@
         </div>
         
         <div class="text-right">
-            <input type="submit" class="btn btn-success" value="Créer une nouvelle figure">
+            <input type="submit" class="btn btn-primary" value="Créer une nouvelle figure">
         </div>
         {{ form_end(form) }}
     </div>
