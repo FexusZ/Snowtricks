@@ -66,10 +66,16 @@ class Figures
      */
     private $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="figure", orphanRemoval=true)
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     /**
@@ -230,5 +236,36 @@ class Figures
             $this->setCreatedAt( new \DateTime(null, new \DateTimeZone('Europe/Paris')) );
         }
             $this->setUpdatedAt( new \DateTime(null, new \DateTimeZone('Europe/Paris')) );
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setFigure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->contains($commentaire)) {
+            $this->commentaires->removeElement($commentaire);
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getFigure() === $this) {
+                $commentaire->setFigure(null);
+            }
+        }
+
+        return $this;
     }
 }
