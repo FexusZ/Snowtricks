@@ -47,7 +47,8 @@
         </div>
     </nav>
 
-    {% block body %}    
+    {% block body %}
+        {{ include('layout/error.html.twig') }} 
     {% endblock %}
 
     {% block javascripts %}

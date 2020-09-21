@@ -162,16 +162,25 @@ fr: "Parcourir",
    .image-height{
         height: 16rem;
     }
+    .image-height2{
+        height: 16rem;
+    }
 }
 
 @media screen and (min-width: 640px) and (max-width: 1199px) {
    .image-height{
         height: 40rem;
     }
+    .image-height2{
+        height: 16rem;
+    }
 }
 
 @media screen and (max-width: 768px) {
    .image-height{
+        height: 20rem;
+    }
+    .image-height2{
         height: 20rem;
     }
 
@@ -185,6 +194,7 @@ fr: "Parcourir",
     border-top-right-radius: 0.625rem;
 }
 .alert{
+    margin-top: -2rem;
     margin-bottom: 0rem !important;
 }
 

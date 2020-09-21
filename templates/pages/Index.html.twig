@@ -5,23 +5,7 @@
 {% endblock %}
 {% block body %}
     <div>
-        {% for message in app.flashes('success') %}
-        <div class="alert alert-success text-center">
-            {{ message }}
-        </div>
-        {% endfor %}
-
-        {% for message in app.flashes('error') %}
-            <div class="alert alert-danger text-center">
-                {{ message }}
-            </div>
-        {% endfor %}
-
-        {% for message in app.flashes('info') %}
-            <div class="alert alert-info text-center">
-                {{ message }}
-            </div>
-        {% endfor %}
+       {{ parent() }}
     </div>
     <div class="w-100 h-100">
         <div class="home-bg">

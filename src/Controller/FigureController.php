@@ -12,6 +12,8 @@ use \App\Entity\Figures;
 use \App\Entity\Image;
 use \App\Entity\Video;
 use \App\Form\FigureType;
+use \App\Form\ImageType;
+use \App\Form\VideoType;
 
 
 class FigureController extends AbstractController
@@ -75,7 +77,7 @@ class FigureController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
         $figure = new Figures;
@@ -83,7 +85,6 @@ class FigureController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $figure->setIdClient($this->getUser());
             $figure->updateTimestamps();
 
@@ -125,7 +126,7 @@ class FigureController extends AbstractController
      * @param Figures $figure
      * @return mixed
      */
-    public function delete(Figures $figure, Request $request)
+    public function delete(Figures $figure, Request $request): Response
     {
         if ($this->isCsrfTokenValid('delete' . $figure->getId(), $request->get('_token'))) {
 
@@ -143,5 +144,85 @@ class FigureController extends AbstractController
         }
 
         return $this->redirectToRoute('index');
+    }
+
+    /**
+     * @param Figures $figure
+     * @Route("/figure/image/update/{id<[0-9]+>}", name="figure.image.update", methods="POST||GET")
+     * @return Response
+     */
+    public function imageUpdate(Request $request, Image $image): Response
+    {
+        if (($this->isCsrfTokenValid('update_image' . $image->getId(), $request->get('_token')))) {
+            $upload_file = $this->getParameter('upload_directory');
+            $file_name = $request->request->get('old_image');
+
+            if (file_exists('uploads/'.$file_name))
+                unlink ('uploads/'.$file_name);
+
+            $request->files->get('image')->move($upload_file, $file_name);
+            $this->addFlash('info', 'image modifié');
+
+        }
+        return $this->redirectToRoute('figure.edit', ['id' => $image->getIdFigure()->getId()]);
+    }
+
+    /**
+     * @param Figures $figure
+     * @Route("/figure/image/update/{id<[0-9]+>}", name="figure.image.delete", methods="DELETE")
+     * @return Response
+     */
+    public function imageDelete(Request $request, Image $image): Response
+    {
+        if (($this->isCsrfTokenValid('delete_image' . $image->getId(), $request->get('_token')))) {
+            dd($image->getImage());
+
+            if (file_exists('uploads/'.$image->getImage()))
+                unlink ('uploads/'.$image->getImage());
+            
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->remove($image);
+            $em->flush();
+            $this->addFlash('info', 'vidéo supprimé');
+        }
+        return $this->redirectToRoute('figure.edit', ['id' => $image->getIdFigure()->getId()]);
+    }
+
+    /**
+     * @param Figures $figure
+     * @Route("/figure/video/update/{id<[0-9]+>}", name="figure.video.update", methods="POST||GET")
+     * @return Response
+     */
+    public function videoUpdate(Request $request, Video $video): Response
+    {
+        if (($this->isCsrfTokenValid('update_video' . $video->getId(), $request->get('_token')))) {
+            $video->setVideo($request->request->get('video'));
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($video);
+            $em->flush();
+            $this->addFlash('info', 'vidéo modifié');
+
+        }
+        return $this->redirectToRoute('figure.edit', ['id' => $video->getIdFigure()->getId()]);
+    }
+
+    /**
+     * @param Figures $figure
+     * @Route("/figure/video/update/{id<[0-9]+>}", name="figure.video.delete", methods="DELETE")
+     * @return Response
+     */
+    public function videoDelete(Request $request, Video $video): Response
+    {
+        if (($this->isCsrfTokenValid('delete_video' . $video->getId(), $request->get('_token')))) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->remove($video);
+            $em->flush();
+            $this->addFlash('info', 'vidéo supprimé');
+        }
+        return $this->redirectToRoute('figure.edit', ['id' => $video->getIdFigure()->getId()]);
     }
 }

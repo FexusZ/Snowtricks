@@ -7,60 +7,139 @@
     <div class="jumbotron text-center mt-5">
         <h1> Edition de figure</h1>
     </div>
+    {{ parent() }}
 
     {% if figure.images is defined or figure.videos is defined%}
         <div class="container">
             <div class="row">
 
                 {% for image in figure.images %}
-                    <div class="col-md-2">
-                        <img data-id='{{ image.id }}' data-nom='{{ image.image }}' class='image-change image-height w-100' src="{{ asset("uploads") ~ "/" ~ image.image }}">
-                        <button class="btn btn-outline-info btn-sm btn-trick btn-margin-edit">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                    </div>        
+                    <div class="col-md-4 mb-5 ">
+                        <div class="card">
+                            <img data-id='{{ image.id }}' data-nom='{{ image.image }}' class='image-change image-height2 w-100' src="{{ asset("uploads") ~ "/" ~ image.image }}">
+                            <div class="card-body">
+                                <div class='d-flex'>
+                                    <button class="btn btn-outline-info btn-sm btn-trick mr-2" 
+                                    data-toggle="modal"
+                                    data-target="#image{{ image.id }}"
+                                    >
+                                       <i class="fa fa-edit"></i>
+                                    </button>
+
+                                    <form action="{{ path('figure.image.delete', {'id': image.id}) }}" 
+                                    method='POST' 
+                                    onsubmit="return confirm('Supprimer image ?')"
+                                    >
+                                        <input type="hidden" name="_method" value="delete">
+                                        <button class="btn btn-outline-danger btn-sm btn-trick">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete_image' ~ image.id) }}">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Debut Modal -->
+                    <div class="modal fade" id="image{{ image.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modifier l'image</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ path('figure.image.update', {'id' : image.id}) }}" enctype="multipart/form-data" method="post">
+                                        <!-- <input type='file' name='image'> -->
+
+                                        <div class="custom-file">
+                                            <!-- <input type="hidden" name="MAX_FILE_SIZE" value="30000" /> -->
+                                            <input type="file" id="figure_images_image" 
+                                            name="image" 
+                                            lang="fr" 
+                                            class="custom-file-input">
+                                            <label for="figure_images_image" lang="en" class="custom-file-label">
+                                            </label>
+                                        </div>
+
+                                        <input type='hidden' name='old_image' value='{{ image.image }}'>
+                                        <input type='hidden' name='id' value='{{ image.id }}'>
+                                        <input type='hidden' name='id_figure' value='{{ figure.id }}'>
+                                        <input type="hidden" name="_token" value="{{ csrf_token('update_image' ~ image.id) }}">
+
+                                        <input type="submit">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin Modal-->     
                 {% endfor %}
 
                 {% for video in figure.videos%}
-                    <div class="col-md-2">
-                        <embed data-id='{{ video.id }}' class='video-change d-block w-100 image-height' src="{{ video.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                    <div class="col-md-4 mb-5 ">
+                        <div class="card">
+                            <embed data-id='{{ video.id }}' class='video-change d-block w-100 image-height2' src="{{ video.video }}" frameborder="0" allow="autoplay; encrypted-media"  allowfullscreen />
+                            <div class="card-body">
+                                <div class='d-flex'>
+                                    <button class="btn btn-outline-info btn-sm btn-trick mr-2"
+                                    data-toggle="modal"
+                                    data-target="#video{{ video.id }}">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
 
-                        <button class="btn btn-outline-info btn-sm btn-trick btn-margin-edit">
-                            <i class="fa fa-edit"></i>
-                        </button>
+                                    <form action="{{ path('figure.video.delete', {'id': video.id}) }}" 
+                                    method='POST' 
+                                    onsubmit="return confirm('Supprimer vidéo ?')"
+                                    >
+                                        <input type="hidden" name="_method" value="delete">
+                                        <button class="btn btn-outline-danger btn-sm btn-trick">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
 
-                    </div>  
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete_video' ~ video.id) }}">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <!-- Debut Modal -->
+                    <div class="modal fade" id="video{{ video.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modifier la video</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ path('figure.video.update', {'id' : video.id}) }}" method="post">
+                                        <div class="custom-file">
+                                            <input type="text" name='video'>
+                                        </div>
+
+                                        <input type='hidden' name='old_video' value='{{ video.video }}'>
+                                        <input type='hidden' name='id' value='{{ video.id }}'>
+                                        <input type='hidden' name='id_figure' value='{{ figure.id }}'>
+                                        <input type="hidden" name="_token" value="{{ csrf_token('update_video' ~ video.id) }}">
+
+                                        <input type="submit">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin Modal-->   
                 {% endfor %}
             </div>
         </div>
     {% endif %}
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-      Launch demo modal
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
     <div class="container mt-5">
         {{ form_start(form) }}
         {{ form_row(form.figure) }}
