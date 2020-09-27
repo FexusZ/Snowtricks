@@ -31,6 +31,12 @@ body {
 	border-radius: 0.625rem;
 	border:solid 1px;
 }
+.fa-3{
+    font-size: 4em;
+}
+.fa-1 {
+    font-size: 2em;
+}
 /*@media (min-width: 1200px) {
 	.col-xl-4{
 		-ms-flex: 0 0 20% !important;
