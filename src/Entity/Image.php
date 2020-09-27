@@ -24,6 +24,8 @@ class Image
      */
     private $image;
 
+    private $imageType;
+    
     /**
      * @ORM\ManyToOne(targetEntity=Figures::class, inversedBy="images")
      * @ORM\JoinColumn(nullable=false)

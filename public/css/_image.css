@@ -1,0 +1,42 @@
+@media screen and (min-width: 1200px) {
+   .image-height{
+        height: 16rem;
+    }
+    .image-height2{
+        height: 16rem;
+    }
+    .col-xl-12>div>div>div>div>.image-height{
+        height: 40rem !important;
+        
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1199px) {
+   .image-height{
+        height: 25rem;
+    }
+    .image-height2{
+        height: 16rem;
+    }
+    .mb-figure-show{
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+   .image-height{
+        height: 20rem;
+    }
+    .image-height2{
+        height: 20rem;
+    }
+    .mb-figure-show{
+        margin-bottom: 1.5rem;
+    }
+    
+}
+
+.image-border{
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+}

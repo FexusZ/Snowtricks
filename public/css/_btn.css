@@ -1,0 +1,8 @@
+.btn-margin-edit{
+    margin-top : -65px;
+    z-index: 1000;
+    position:relative;
+}
+.btn-trick {
+    font-size: 1rem;
+}

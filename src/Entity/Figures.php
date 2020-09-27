@@ -25,20 +25,26 @@ class Figures
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Merci d'entrer un nom de figure!")
      */
     private $figure;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Merci d'entrer une description!")
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Merci d'entrer un groupe de figure!")
      */
     private $groupe;
+
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $featured_image = 0;
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="id_figure", orphanRemoval=true, cascade={"persist"})
@@ -120,16 +126,27 @@ class Figures
         return $this->groupe;
     }
 
-    public function getGroupeText(): ?string
-    {
-        return self::GROUP[$this->groupe];
-    }
-
     public function setGroupe(int $groupe): self
     {
         $this->groupe = $groupe;
 
         return $this;
+    }
+
+    public function getFeaturedImage(): ?int
+    {
+        return $this->featured_image;
+    }
+
+    public function setFeaturedImage(int $featured_image): self
+    {
+        $this->featured_image = $featured_image;
+        return $this;
+    }
+
+    public function getGroupeText(): ?string
+    {
+        return self::GROUP[$this->groupe];
     }
 
     /**

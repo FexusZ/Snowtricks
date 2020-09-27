@@ -24,7 +24,7 @@ class FigureType extends AbstractType
             ->add('images', ImageType::class, [
                 'mapped' => false,
                 'required' => false,
-                'label' => 'Images : '
+                'label' => 'Images : ',
             ])
             ->add('videos', VideoType::class, [
                 'mapped' => false,

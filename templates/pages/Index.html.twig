@@ -31,14 +31,22 @@
         <div class="row">
             {% if figures is not empty %}
                 {% for figure in figures %}
-                    <div class="col-xl-4 mb-sm-5 ">
+                    <div class="col-xl-3 mb-sm-5 ">
                             <div class="card">
                                 <a href="{{ path('figure.show', {'id': figure.id}) }}">
-                                    <img class='card-img-top rounded-app image-height'
-                                    {% if figure.images.0.image is defined %}
-                                         src='{{ asset('uploads') }}/{{ figure.images.0.image }}'
+                                    <img class='card-img-top image-height'
+                                    {% if figure.FeaturedImage == 0 %}
+                                        {% if figure.images is not empty %}
+                                            src='{{ asset('uploads')  ~ "/" ~ figure.images.0.image }}'
+                                        {% else %}
+                                            src='{{ asset('uploads')  ~ "/default.jpg" }}'
+                                        {% endif %}
                                     {% else %}
-                                        src='{{ asset('uploads') }}/default.jpg'
+                                        {% for image in figure.images %}
+                                            {% if image.id == figure.FeaturedImage %}
+                                                src='{{ asset('uploads')  ~ "/" ~ image.image }}'
+                                            {% endif %}
+                                        {% endfor %}
                                     {% endif %}
                                     >
                                 </a>
@@ -71,8 +79,6 @@
                     </div>
 
                 {%  endfor %}
-
-                    
             {% else %}
                 <div class="col-md-12 mb-6">
                     <div class="text-center">
@@ -82,10 +88,4 @@
             {% endif %}
         </div>
     </div>
-
-        
-
-    <script type="text/javascript">
-       
-    </script>
 {% endblock %}

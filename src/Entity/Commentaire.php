@@ -91,4 +91,9 @@ class Commentaire
 
         return $this;
     }
+
+     public function updateTimestamps()
+    {
+        $this->setCreatedAt( new \DateTime(null, new \DateTimeZone('Europe/Paris')) );
+    }
 }
