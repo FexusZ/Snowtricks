@@ -4,7 +4,7 @@ $(function ()
 
 	$(window).scroll(function(){
 		console.log($(window).scrollTop(), elementPosition)
-			if($(window).scrollTop() > elementPosition.top){
+			if($(window).scrollTop() > 979){
 				$('#navigation').css('position','fixed');
 				$('#navigation').css('bottom','5%');
 				$('#navigation').css('left','95%');

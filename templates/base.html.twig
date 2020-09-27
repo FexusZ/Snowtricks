@@ -12,16 +12,11 @@
         {% endblock %}
     </head>
     <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-navbar">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-
-        <a class="navbar-brand" href="{{ path('index') }}">SnowTricks</a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
+       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand" href="{{ path('index') }}">SnowTricks</a>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item {% if current_menu is defined and current_menu == 'index' %}active{% endif %}">
                     <a class="nav-link" href="{{ path('index') }}">Accueil <span class="sr-only">(current)</span></a>
@@ -45,9 +40,13 @@
             </ul>
 
         </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </nav>
 
-    {% block body %}    
+    {% block body %}
+        {{ include('layout/error.html.twig') }} 
     {% endblock %}
 
     {% block javascripts %}
@@ -56,13 +55,4 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     {% endblock %}
     </body>
-    {# {% block footer %}
-        <footer class="footer footer-relative mb-5">
-            <div class="container ">
-                <div class="card p-4 radius-3 bg-dark text-white pr-5 pl-5 text-center">
-                    <span>Designed by Fexus.</span>
-                </div>
-            </div>
-        </footer>
-    {% endblock %} #}
 </html>

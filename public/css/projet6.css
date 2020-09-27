@@ -1,68 +1,12 @@
+@import "_position.css";
+@import "_image.css";
+@import "_form.css";
+@import "_btn.css";
+@import "_format.css";
+
 .jumbotron{
      background-color: #ddd !important;
  }
-.registration {
-    margin-top: 10rem;
-    margin-bottom: 3rem;
-}
-
-.plus{
-    width: 20px;
-}
-
-.video>.form-group{
-    margin-bottom:0rem !important;
-}
-
-#figure_videos>.form-group{
-    margin-bottom:0rem !important;
-}
-
-#figure_videos>.form-group>.form-group{
-    margin-bottom:0rem !important;
-}
-
-
-
-.bottom-list{
-    border-radius: 0.75rem;
-    background-color: rgba(190,190,190,0.5);
-}
-.bottom-left {
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
-}
-.bottom-right{
-    position: absolute;
-    top: 95%;
-    left: 95%;
-}
-
-.top-center {
-    position: absolute;
-    top: 8px;
-    left: 40%;
-    right: 40%;
-}
-
-/*.centered {
-    position: absolute;
-    top: 50%;
-    left: 45%;
-}*/
-
-.centered {
-    position: absolute;
-    top: 45%;
-    left: 25%;
-}
-
-.center{
-    position: relative;
-    left:45%;
-}
-
 .home-bg {
     background-image: url(/uploads/home.jpg);
     background-size: cover;
@@ -71,76 +15,8 @@
     width: 100%;
     height: 100vh;
 }
-
-.mb-6{
-    margin-bottom: 6rem!important;
-}
-
-.mt-6{
-    margin-top: 6rem!important;
-}
-
-.radius-3{
-    border-radius: 3rem;
-}
-
-html,
-body {
-    height: 100%;
-}
-
-.form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-}
-
-.form-signin .checkbox {
-    font-weight: 400;
-}
-
-.form-signin .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    font-size: 16px;
-}
-
-.form-signin .form-control:focus {
-    z-index: 2;
-}
-
-.form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-.fa-large{
-    font-size: xx-large !important;
-}
-
 .a {
     color: black;
-}
-
-.card-list{
-    border: none;
-    background-color: rgba(190,190,190,0.5);
-    border-radius: 1rem !important;
-}
-
-.card {
-    box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px #5a61690f, 0 7px 70px rgba(90, 97, 105, 0.1);
-    border-radius: 0.625rem;
 }
 .a-login{
     color: rgba(0,0,0,.5) !important;
@@ -149,50 +25,6 @@ body {
     border-radius: 0.25rem;
     padding:5px;
 }
-
-$custom-file-text: (
-fr: "Parcourir",
-);
-
-.rounded-app{
-    border-radius: 1rem !important;
-}
-
-@media screen and (min-width: 1200px) {
-   .image-height{
-        height: 16rem;
-    }
-}
-
-@media screen and (min-width: 640px) and (max-width: 1199px) {
-   .image-height{
-        height: 40rem;
-    }
-}
-
-@media screen and (max-width: 768px) {
-   .image-height{
-        height: 20rem;
-    }
-
-    .mb-figure-show{
-        margin-bottom: 1.5rem;
-    }
-}
-
-.image-border{
-    border-top-left-radius: 0.625rem;
-    border-top-right-radius: 0.625rem;
-}
-.alert{
-    margin-bottom: 0rem !important;
-}
-
-.btn-margin-edit{
-    margin-top : -65px;
-    z-index: 1000;
-    position:relative;
-}
-.btn-trick {
-    font-size: 1rem;
+#navigation{
+    display: none;
 }

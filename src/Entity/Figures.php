@@ -25,20 +25,26 @@ class Figures
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Merci d'entrer un nom de figure!")
      */
     private $figure;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Merci d'entrer une description!")
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Merci d'entrer un groupe de figure!")
      */
     private $groupe;
+
+    /**
+     * @ORM\Column(type="integer", options={"default":0})
+     */
+    private $featured_image = 0;
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="id_figure", orphanRemoval=true, cascade={"persist"})
@@ -66,10 +72,16 @@ class Figures
      */
     private $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="figure", orphanRemoval=true)
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     /**
@@ -114,16 +126,27 @@ class Figures
         return $this->groupe;
     }
 
-    public function getGroupeText(): ?string
-    {
-        return self::GROUP[$this->groupe];
-    }
-
     public function setGroupe(int $groupe): self
     {
         $this->groupe = $groupe;
 
         return $this;
+    }
+
+    public function getFeaturedImage(): ?int
+    {
+        return $this->featured_image;
+    }
+
+    public function setFeaturedImage(int $featured_image): self
+    {
+        $this->featured_image = $featured_image;
+        return $this;
+    }
+
+    public function getGroupeText(): ?string
+    {
+        return self::GROUP[$this->groupe];
     }
 
     /**
@@ -230,5 +253,36 @@ class Figures
             $this->setCreatedAt( new \DateTime(null, new \DateTimeZone('Europe/Paris')) );
         }
             $this->setUpdatedAt( new \DateTime(null, new \DateTimeZone('Europe/Paris')) );
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setFigure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->contains($commentaire)) {
+            $this->commentaires->removeElement($commentaire);
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getFigure() === $this) {
+                $commentaire->setFigure(null);
+            }
+        }
+
+        return $this;
     }
 }

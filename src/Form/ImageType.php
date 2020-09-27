@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ImageType extends AbstractType
 {
@@ -16,7 +17,7 @@ class ImageType extends AbstractType
             ->add('image', FileType::class, [
                 'multiple' => true,
                 'label' => false,
-                'attr' => ["lang" => "fr"]
+                'attr' => ["lang" => "fr", "class" => "custom-file-text", "accept" => ".jpg,.jpeg,.gif,.png,.bmp"]
             ])
         ;
     }

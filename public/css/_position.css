@@ -1,0 +1,60 @@
+.bottom-list{
+    border-radius: 0.75rem;
+    background-color: rgba(190,190,190,0.5);
+}
+.bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+.bottom-right{
+    position: absolute;
+    top: 95%;
+    left: 95%;
+}
+.top-center {
+    position: absolute;
+    top: 8px;
+    left: 40%;
+    right: 40%;
+}
+.centered {
+    position: absolute;
+    top: 45%;
+    left: 25%;
+}
+.center{
+    position: relative;
+    left:45%;
+}
+.mb-6{
+    margin-bottom: 6rem!important;
+}
+.mt-6{
+    margin-top: 6rem!important;
+}
+.registration {
+    margin-top: 10rem;
+    margin-bottom: 3rem;
+}
+.alert{
+    margin-top: -2rem;
+    margin-bottom: 0rem !important;
+}
+.fixed-navbar{
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+@media screen and (min-width: 768px) {
+    .fixed-navbar{
+        top: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .fixed-navbar{
+        bottom: 0;
+    }
+}

@@ -1,0 +1,40 @@
+.plus{
+    width: 20px;
+}
+.radius-3{
+    border-radius: 3rem;
+}
+.fa-large{
+    font-size: xx-large !important;
+}
+.card-list{
+    border: none;
+    background-color: rgba(190,190,190,0.5);
+    border-radius: 1rem !important;
+}
+.card {
+    box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px #5a61690f, 0 7px 70px rgba(90, 97, 105, 0.1);
+    border-radius: 0.625rem;
+}
+.card-img-top {
+    border-top-left-radius: calc(.675rem - 1px);
+    border-top-right-radius: calc(.675rem - 1px);
+}
+.rounded-app{
+    border-radius: 1rem !important;
+}
+html,
+body {
+    height: 100%;
+}
+.border-radius-solid{
+	border-radius: 0.625rem;
+	border:solid 1px;
+}
+/*@media (min-width: 1200px) {
+	.col-xl-4{
+		-ms-flex: 0 0 20% !important;
+	    flex: 0 0 20% !important;
+	    max-width: 20% !important;
+	}
+}*/
