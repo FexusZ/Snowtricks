@@ -7,7 +7,15 @@
     }
     .col-xl-12>div>div>div>div>.image-height{
         height: 40rem !important;
-        
+    }
+    .show-responsive{
+        display: flex !important;
+    }
+    .show-image{
+        display: none !important;
+    }
+    .hide-image{
+        display: none !important;
     }
 }
 
@@ -21,6 +29,15 @@
     .mb-figure-show{
         margin-bottom: 1.5rem;
     }
+    .show-responsive{
+        display: flex !important;
+    }
+    .show-image{
+        display: none !important;
+    }
+    .hide-image{
+        display: none !important; 
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -33,7 +50,15 @@
     .mb-figure-show{
         margin-bottom: 1.5rem;
     }
-    
+    .show-responsive{
+        display: none;
+    }
+    .show-image{
+        display: initial;
+    }
+    .hide-image{
+        display: none;
+    }
 }
 
 .image-border{

@@ -25,7 +25,7 @@ class Image
     private $image;
 
     private $imageType;
-    
+    private $type_image = ['image/jpeg', 'image/gif', 'image/png', 'image/bmp'];
     /**
      * @ORM\ManyToOne(targetEntity=Figures::class, inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
@@ -51,6 +51,14 @@ class Image
         $this->image = $image;
 
         return $this;
+    }
+
+    public function checkImage($image): bool
+    {
+        if (in_array($image->getMimeType(), $this->type_image) ){
+            return true;
+        }
+        return false;
     }
 
     public function getIdFigure(): ?Figures

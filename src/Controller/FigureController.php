@@ -37,10 +37,12 @@ class FigureController extends AbstractController
 
             foreach ($request->files->get('figure')['images']['image'] as $file) {
                 $image = new Image;
-                $file_name = md5(uniqid()). '.'.$file->guessExtension();
-                $file->move($upload_file, $file_name);
-                $image->setImage($file_name);
-                $figure->addImage($image);
+                if ($image->checkImage($file)) {
+                    $file_name = md5(uniqid()). '.'.$file->guessExtension();
+                    $file->move($upload_file, $file_name);
+                    $image->setImage($file_name);
+                    $figure->addImage($image);
+                }
             }
             foreach ($request->request->get('figure')['videos']['video'] as $file) {
                 $video = new Video;
@@ -66,7 +68,7 @@ class FigureController extends AbstractController
 
     /**
      * @param Figures $figure
-     * @Route("/figure/show/{id<[0-9]+>}", name="figure.show")
+     * @Route("/figure/details/{id<[0-9]+>}", name="figure.show")
      * @return Response
      */
     public function show(Figures $figure, Request $request): Response
@@ -84,8 +86,7 @@ class FigureController extends AbstractController
             $em->persist($commentaire);
             $em->flush();
             $this->addFlash('info', 'Commentaire ajouté!');
-            unset($request);
-            $this->redirectToRoute('figure.show', [
+            return $this->redirectToRoute('figure.show', [
                 'id' => $figure->getId()
             ]);
         }

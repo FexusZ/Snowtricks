@@ -30,7 +30,12 @@
                             <i class="fa fa-1 fa-nav fa-plus-circle" aria-hidden="true"></i>
                         </a>
                     </li>
-
+                    <li class="nav-item {% if current_menu is defined and current_menu == 'app.profile' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('app.profile', {'id': app.user.id}) }}">
+                                <span class='text-nav'>Profile</span>
+                                <i class="fa fa-1 fa-nav fa-user" aria-hidden="true"></i>
+                            </a>
+                        </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app.logout') }}">
                             <span class='text-nav'>Logout</span>

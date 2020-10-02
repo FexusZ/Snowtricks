@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <script src="{{ asset('js/show.js') }}"></script>
+{% endblock %}
 <div class='mt-6'></div>
 {{ parent() }}
-<div class="container mt-5">
+
+<div class="container mt-5 mb-4-responsive">
     <div class="row justify-content-center">          
         <div class="col-md-10 col-md-offset-1 mb-4"> 
             <div class="card">
@@ -32,7 +36,7 @@
                     <hr>
                     
                     <!-- Start Carousel -->
-                    <div class="row">
+                    <div class="row show-responsive">
                         {% if figure.images is not empty %}
 
                             <div class="
@@ -99,11 +103,15 @@
                         {% endif %}
                         </div>
                     </div>
+                    <div class="text-center">
+                        <input type='submit' class="btn btn-info show-image" value='Afficher les images'>
+                        <input type='submit' class="btn btn-info hide-image" value='Cacher les images'>
+                    </div>
                     <!-- End Carousel -->
                     {% if app.user %}
                         <hr />
                         <div class='d-flex'>
-                            <div class="ml-auto">
+                            <div class="ml-auto ml-responsive">
                                 <a href="{{ path('figure.edit', {'id': figure.id}) }}" class="btn btn-outline-info btn-sm btn-trick mr-2">
                                     <i class="fa fa-edit"></i>
                                 </a>
@@ -138,7 +146,7 @@
 
                                 <p class='card p-3'>
                                     {{ commentaire.client.username }}, le : {{ commentaire.createdAt|date('d-m-Y H:i') }}<br>
-                                    {{ commentaire.commentaire }}
+                                    {{ commentaire.commentaire|raw }}
                                 </p>
 
                             {% endfor %}

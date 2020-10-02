@@ -46,7 +46,7 @@ class Commentaire
 
     public function getCommentaire(): ?string
     {
-        return $this->commentaire;
+        return nl2br($this->commentaire);
     }
 
     public function setCommentaire(string $commentaire): self

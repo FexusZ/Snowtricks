@@ -23,10 +23,6 @@
 .rounded-app{
     border-radius: 1rem !important;
 }
-html,
-body {
-    height: 100%;
-}
 .border-radius-solid{
 	border-radius: 0.625rem;
 	border:solid 1px;
