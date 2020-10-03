@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-use \App\Form\RegistrationFormType;
+use \App\Form\RegistrationType;
 use \App\Form\ClientType;
 use \App\Entity\Client as ClientEntity;
 
@@ -37,7 +37,7 @@ class ClientController extends AbstractController
      */
     public function profile(ClientEntity $user, Request $request): Response
     {
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -54,6 +54,14 @@ class ClientController extends AbstractController
      * @Route("/logout", name="app.logout")
      */
     public function logout()
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    /**
+     * @Route("/registration", name="app.register")
+     */
+    public function register(ClientEntity $user, Request $request)
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }

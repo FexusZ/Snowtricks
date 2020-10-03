@@ -19,6 +19,10 @@ use \App\Entity\Video;
 use \App\Form\FigureType;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+
 class HomeController extends AbstractController
 {
     /**
@@ -46,18 +50,27 @@ class HomeController extends AbstractController
      * @Route("/fixture", name="fixture")
      * @return Response
      */
-    public function fixture(): Response
+    public function fixture(MailerInterface $mailer): Response
     {
-        $client = new ClientEntity();
-        $client->setUsername('John Doe')
-        ->setEmail('johndoe@gmail.com')
-        // mdp = test
-        ->setPassword(' $argon2id$v=19$m=65536,t=4,p=1$TDhJYmlqcy5OQWppazNoRg$raFEzp5vdih+DL+9ocequVUBV7NsuHzq7iLmX1lIf2s');
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($client);
-        $em->flush();
+        $email = (new Email())
+        ->from('fexus.j.sebastien@gmail.com')
+        ->to('jseb.1999@outlook.fr')
+        ->subject('test')
+        ->text('Sending emails is fun again!');
 
+        $mailer->send($email);
+
+        // $client = new ClientEntity();
+        // $client->setUsername('John Doe')
+        // ->setEmail('johndoe@gmail.com')
+        // // mdp = test
+        // ->setPassword(' $argon2id$v=19$m=65536,t=4,p=1$TDhJYmlqcy5OQWppazNoRg$raFEzp5vdih+DL+9ocequVUBV7NsuHzq7iLmX1lIf2s');
+
+        // $em = $this->getDoctrine()->getManager();
+        // $em->persist($client);
+        // $em->flush();
+        dd("mail envoyé");
         return $this->render('pages/index.html.twig', ['current_menu' => 'index', 'tab_query' => []]);
     }
 }

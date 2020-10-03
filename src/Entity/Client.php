@@ -54,14 +54,14 @@ class Client implements UserInterface
     private $figures;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
-
-    /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="client", orphanRemoval=true)
      */
     private $commentaires;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $activation_token;
 
    
 
@@ -182,18 +182,6 @@ class Client implements UserInterface
         return $this;
     }
 
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Commentaire[]
      */
@@ -221,6 +209,18 @@ class Client implements UserInterface
                 $commentaire->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activation_token;
+    }
+
+    public function setActivationToken(?string $activation_token): self
+    {
+        $this->activation_token = $activation_token;
 
         return $this;
     }
