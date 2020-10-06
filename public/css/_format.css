@@ -33,6 +33,15 @@
 .fa-1 {
     font-size: 2em;
 }
+
+.images_round {
+    border: solid 1px;
+    border-radius: 15rem;
+    width: 60px;
+    height: 60px;
+    /*vertical-align: baseline;*/
+    vertical-align: text-top;
+}
 /*@media (min-width: 1200px) {
 	.col-xl-4{
 		-ms-flex: 0 0 20% !important;

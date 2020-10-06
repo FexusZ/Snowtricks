@@ -31,8 +31,8 @@
                         </a>
                     </li>
                     <li class="nav-item {% if current_menu is defined and current_menu == 'app.profile' %}active{% endif %}">
-                            <a class="nav-link" href="{{ path('app.profile', {'id': app.user.id}) }}">
-                                <span class='text-nav'>Profile</span>
+                            <a class="nav-link" href="{{ path('app.profil') }}">
+                                <span class='text-nav'>Profil</span>
                                 <i class="fa fa-1 fa-nav fa-user" aria-hidden="true"></i>
                             </a>
                         </li>
@@ -49,12 +49,12 @@
                                 <i class="fa fa-1 fa-nav fa-user" aria-hidden="true"></i>
                             </a>
                         </li>
-                       {# <li class="nav-item {% if current_menu is defined and current_menu == 'app.register' %}active{% endif %}">
+                       <li class="nav-item {% if current_menu is defined and current_menu == 'app.register' %}active{% endif %}">
                            <a class="nav-link" href="{{ path('app.register') }}">
                                <span class='text-nav'>Register</span>
                                <i class="fa fa-1 fa-nav fa-sign-in" aria-hidden="true"></i>
                            </a>
-                       </li> #}
+                       </li>
             {% endif %}
             </ul>
 

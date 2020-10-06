@@ -29,11 +29,4 @@ $(function ()
 			$('#navigation').hide();
 		}
 	}
-
-	$(document).on('click', '#loadMore', function(e)
-	{
-		$(this).hide();
-		e.preventDefault();
-		$('.hide').show();
-	})
 });

@@ -2,6 +2,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <script src="{{ asset('js/index.js') }}"></script>
+    <script src="{{ asset('js/loadMore.js') }}"></script>
 {% endblock %}
 {% block body %}
     <div>
@@ -33,7 +34,7 @@
                 {%  set hide = '' %}
                 {% for figure in figures %}
                     {% set counter = ( counter | default(0) ) + 1 %}
-                    {% if counter > 15 %}
+                    {% if counter > 8 %}
                         {% set hide = " hide " %}
                     {% endif %}
                     <div class="col-xl-3 mb-sm-5 {{ hide }}">
@@ -91,7 +92,7 @@
                 </div>
             {% endif %}
         </div>
-        {% if figures|length > 15 %}
+        {% if figures|length > 8 %}
             <div class='text-center'>   
                 <a href='#' id='loadMore'>
                     <i class="fa fa-plus-circle fa-3" aria-hidden="true"></i>

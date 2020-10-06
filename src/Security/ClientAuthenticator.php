@@ -79,6 +79,9 @@ class ClientAuthenticator extends AbstractFormLoginAuthenticator implements Pass
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        if ($user->getActivationToken() !== null) {
+            throw new CustomUserMessageAuthenticationException('Compte non validé.');
+        }
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 

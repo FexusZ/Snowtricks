@@ -60,7 +60,8 @@ class FigureController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'Figure modifié');
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('figure.edit', ['id' => $figure->getId()]);
+
         }
 
         return $this->render('pages/figures/edit.html.twig', ['current_menu' => 'figures.listes', 'form' => $form->createView(), 'figure' => $figure]);

@@ -3,21 +3,21 @@
 {% block stylesheets %}
     {{ parent() }}
     <script src="{{ asset('js/show.js') }}"></script>
+    <script src="{{ asset('js/loadMore.js') }}"></script>
 {% endblock %}
 <div class='mt-6'></div>
 {{ parent() }}
-
 <div class="container mt-5 mb-4-responsive">
     <div class="row justify-content-center">          
         <div class="col-md-10 col-md-offset-1 mb-4"> 
             <div class="card">
-                <img class="card-img-top" 
+                <img class="card-img-top" src="
                 {% if figure.images.0.image is defined %}
-                    src="{{ asset('uploads') ~ "/" ~ figure.images.0.image }}"
+                    {{ asset('uploads') ~ "/" ~ figure.images.0.image }}
                 {% else %}
-                    src="{{ asset('uploads') ~ "/default.jpg" }}"
+                    {{ asset('uploads') ~ "/default.jpg" }}
                 {% endif %}
-                >
+                ">
                 <div class="card-body">
                     <h4 class="card-title"><strong> {{ figure.figure }}</strong></h4>
                     
@@ -131,7 +131,6 @@
                     <p>
                         {% if app.user %}
                         <hr />
-                        
                         {{ form_start(form) }}
                             {{ form_row(form.commentaire) }}
                             <div class="text-right">
@@ -139,26 +138,46 @@
                             </div>
                         {{ form_end(form) }}
                         {% endif %}
-                        <hr />                        
+                        <hr />
                         {% if figure.commentaires is not empty %}
                             <h5 class="card-title">Commentaire ({{ figure.commentaires|length }})</h5>
+                            {%  set hide = '' %}
                             {% for commentaire in figure.commentaires %}
-
-                                <p class='card p-3'>
-                                    {{ commentaire.client.username }}, le : {{ commentaire.createdAt|date('d-m-Y H:i') }}<br>
-                                    {{ commentaire.commentaire|raw }}
-                                </p>
-
+                                {% set counter = ( counter | default(0) ) + 1 %}
+                                {% if counter > 10 %}
+                                    {% set hide = " hide " %}
+                                {% endif %}
+                                <table class='{{ hide }}'>
+                                    <tr>
+                                        <td>
+                                            <img src="{{ asset('uploads') }}/default_profil.jpg" class='images_round mr-1'> 
+                                        </td>
+                                        <td class='w-100'>
+                                            <div class='card p-3 m-3'>
+                                                <span class='mb-2'>
+                                                    {{ commentaire.client.username|raw }}, le : {{ commentaire.createdAt|date('d-m-Y H:i') }}
+                                                </span>
+                                                {{ commentaire.commentaire|raw }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             {% endfor %}
                         {% else %}
                             <h5 class="card-title">Pas de commentaire</h5>
+                        {% endif %}
+                        {% if figure.commentaires|length > 10 %}
+                            <div class='text-center'>   
+                                <a href='#' id='loadMore'>
+                                    <i class="fa fa-plus-circle fa-3" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         {% endif %}
                     </p>
                 </div>
             </div>
             <!--  End Trick -->
-
-        </div>     
-    </div>           
+        </div>
+    </div>
 </div>
 {% endblock %}
