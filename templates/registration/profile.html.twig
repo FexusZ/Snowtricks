@@ -1,50 +1,6 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Register{% endblock %}
-
+{% block title %}Profile{% endblock %}
 {% block body %}
-
-    <style type="text/css">
-        
-        .file_form_css{
-            width: 333px;
-            height: 333px;
-            border-radius: 11rem;
-            border: 1px solid;
-            margin: auto;
-        }
-        .file_form_css p{
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            line-height: 170px;
-            color: #ffffff;
-            font-family: Arial;
-        }
-        .file_css {
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            outline: none;
-            opacity: 0;
-            border-radius: 11rem;
-        }
-        .custom-file {
-            height: 100%;
-            width: 100%;
-        }
-        .file_form_css > .form-group {
-            width: 100%;
-            height: 100%;
-            border-radius: 11rem;
-        }
-        .custom-file-label {
-            opacity: 0;
-        }
-        
-    </style>
     {{ parent() }}
     <div class="container registration">
         <!-- Registration Form -->
@@ -52,44 +8,29 @@
             <div class="col-md-6">
                 <h1 class="mb-5 mt-5 text-center">Profile</h1>
                 {{ form_start(form) }}
-
                     <div class="form-group file_form_css">
                     {% if app.user.image %}
-                        <img src="{{ asset('uploads') }}/{{ app.user.image }}" style="
-                        width: 330px;
-                        height: 330px;
-                        border-radius: 11rem;
-                        position: fixed;
-                        z-index: -10;
-                    ">
+                        <img src="{{ asset('uploads') }}/{{ app.user.image }}" class='image_profil_position'>
                     {% else %}
-                        <img src="{{ asset('uploads') }}/default_profil.jpg" style="
-                        width: 330px;
-                        height: 330px;
-                        position: fixed;
-                        border-radius: 11rem;
-                        z-index: -10;
-                    ">
+                        <img src="{{ asset('uploads') }}/default_profil.jpg" class='image_profil_position'>
                     {% endif %} 
-                    
-                            {{ form_widget(form.profile_picture) }}
+                        {{ form_widget(form.profile_picture) }}
                     </div>
-
                      <div class="form-group">
-                            {{ form_row(form.first_name) }}
+                        {{ form_row(form.first_name) }}
                     </div>
 
                     <div class="form-group ">
-                            {{ form_row(form.last_name) }}
+                        {{ form_row(form.last_name) }}
                     </div>
 
                     <div class="form-group">
-                            {{ form_row(form.email) }}
+                        {{ form_row(form.email) }}
                     </div>
                     <div class="form-group mt-5 text-center">
-                            <button type="submit" formnovalidate class="btn btn-lg btn-primary btn-block">Modifier</button>
+                        <button type="submit" formnovalidate class="btn btn-lg btn-primary btn-block">Modifier</button>
                     </div>
-            {{ form_end(form) }}
+                {{ form_end(form) }}
             </div>
         </div>
         <!-- End Registration Form -->

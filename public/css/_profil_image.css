@@ -1,0 +1,44 @@
+.custom-file-label {
+    opacity: 0;
+}
+.file_form_css{
+    width: 333px;
+    height: 333px;
+    border-radius: 11rem;
+    border: 1px solid;
+    margin: auto;
+}
+.file_form_css p{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 170px;
+    color: #ffffff;
+    font-family: Arial;
+}
+.file_css {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    border-radius: 11rem;
+}
+.custom-file {
+    height: 100%;
+    width: 100%;
+}
+.file_form_css > .form-group {
+    width: 100%;
+    height: 100%;
+    border-radius: 11rem;
+}
+.image_profil_position{
+    width: 330px;
+    height: 330px;
+    border-radius: 11rem;
+    position: absolute;
+    z-index: -10;
+}

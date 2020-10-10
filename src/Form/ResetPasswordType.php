@@ -21,8 +21,34 @@ class ResetPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('password', PasswordType::class)
-            ->add('confirm_password', PasswordType::class)
+            ->add('password', PasswordType::class, [
+                'empty_data' => '',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Merci d'entrer un mot de passe!",
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caracteres!',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ]
+            ])
+            ->add('confirm_password', PasswordType::class, [
+                'empty_data' => '',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Merci d'entrer un mot de passe!",
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caracteres!',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ])
+                ]
+            ])
         ;
     }
 

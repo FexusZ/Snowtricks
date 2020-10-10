@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}{{ figure.figure }}{% endblock %}
 {% block body %}
 {% block stylesheets %}
     {{ parent() }}
@@ -103,10 +104,12 @@
                         {% endif %}
                         </div>
                     </div>
-                    <div class="text-center">
-                        <input type='submit' class="btn btn-info show-image" value='Afficher les images'>
-                        <input type='submit' class="btn btn-info hide-image" value='Cacher les images'>
-                    </div>
+                    {% if figure.images is not empty or figure.videos is not empty %}
+                        <div class="text-center">
+                            <input type='submit' class="btn btn-info show-image" value='Afficher le contenu'>
+                            <input type='submit' class="btn btn-info hide-image" value='Cacher le contenu'>
+                        </div>
+                    {% endif %}
                     <!-- End Carousel -->
                     {% if app.user %}
                         <hr />
@@ -134,7 +137,7 @@
                         {{ form_start(form) }}
                             {{ form_row(form.commentaire) }}
                             <div class="text-right">
-                                <input type="submit" class="btn btn-primary" value="Ajouter">
+                                <input type="submit" class="btn btn-primary" value="Ajouter" formnovalidate="">
                             </div>
                         {{ form_end(form) }}
                         {% endif %}
@@ -150,7 +153,11 @@
                                 <table class='{{ hide }}'>
                                     <tr>
                                         <td>
+                                            {% if commentaire.client.image %}
+                                            <img src="{{ asset('uploads') }}/{{ commentaire.client.image }}" class='images_round mr-1'> 
+                                            {% else %}
                                             <img src="{{ asset('uploads') }}/default_profil.jpg" class='images_round mr-1'> 
+                                            {% endif %}
                                         </td>
                                         <td class='w-100'>
                                             <div class='card p-3 m-3'>

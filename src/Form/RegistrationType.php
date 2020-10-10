@@ -25,10 +25,18 @@ class RegistrationType extends AbstractType
 
             ->add('profile_picture', FileType::class,[
                 'attr' => ['class' => 'file_css'],
-                'mapped' => false])
-            ->add('first_name')
-            ->add('last_name')
-            ->add('email')
+                'mapped' => false,
+                'empty_data' => ''
+            ])
+            ->add('first_name', null, [
+                'empty_data' => ''
+            ])
+            ->add('last_name', null, [
+                'empty_data' => ''
+            ])
+            ->add('email', null, [
+                'empty_data' => ''
+            ])
         ;
 
         if (!$this->security->getUser()) {
@@ -36,6 +44,7 @@ class RegistrationType extends AbstractType
                     // instead of being set onto the object directly,
                     // this is read and encoded in the controller
                     'mapped' => false,
+                    'empty_data' => '',
                     'constraints' => [
                         new NotBlank([
                             'message' => "Merci d'entrer un mot de passe!",

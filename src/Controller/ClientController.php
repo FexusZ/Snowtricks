@@ -53,10 +53,11 @@ class ClientController extends AbstractController
             $upload_file = $this->getParameter('upload_directory');
 
             $file = $request->files->get('registration')['profile_picture'];
-            $file_name = md5(uniqid()). '.'.$file->guessExtension();
-            dd($upload_file);
-            $file->move($upload_file, $file_name);
-            $user->setImage($file_name);
+            if ($file) {
+                $file_name = md5(uniqid()). '.'.$file->guessExtension();
+                $file->move($upload_file, $file_name);
+                $user->setImage($file_name);
+            }
             
 
             $em = $this->getDoctrine()->getManager();
@@ -64,7 +65,6 @@ class ClientController extends AbstractController
             $em->flush();
             $this->addFlash('info', 'Modification effectué!');
             return $this->redirectToRoute('app.profil', ['id' => $user->getId()]);
-
         }
         return $this->render('registration/profile.html.twig', [
             'form' => $form->createView(), 'current_menu' => 'app.profil'
@@ -102,6 +102,14 @@ class ClientController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $upload_file = $this->getParameter('upload_directory');
+            $file = $request->files->get('registration')['profile_picture'];
+            if ($file) {
+                $file_name = md5(uniqid()). '.'.$file->guessExtension();
+                $file->move($upload_file, $file_name);
+                $user->setImage($file_name);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -158,18 +166,17 @@ class ClientController extends AbstractController
             $this->addFlash('danger', 'déjà connecté!');
             return $this->redirectToRoute('index');
         }
-        
+
         $form = $this->createForm(ForgotPasswordType::class);
         $form->handleRequest($request);
-        dump($form->isSubmitted());
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $user =  $user = $client->findOneBy(['email' => $form->get('email')->getData()]);
 
             if (!$user) {
                 $this->addFlash('danger', 'Aucun compte relié a l\'email : ' .$form->get('email')->getData());
-
-                
+            } elseif($user->getActivationToken() !== null) {
+                $this->addFlash('danger', 'Compte non validé.');
             } else {
                 $user->setResetToken(md5(uniqid()));
 
@@ -178,13 +185,11 @@ class ClientController extends AbstractController
                 $entityManager->flush();
 
                 $url = $this->generateUrl('app.reset_password', ['token' => $user->getResetToken()], UrlGeneratorInterface::ABSOLUTE_URL);
-
                 $email = (new Email())
                 ->from('fexus.j.sebastien@gmail.com')
                 ->to($user->getEmail())
                 ->subject('Modification du mot de passe')
                 ->html('Modifier mon mot de passe : <a href="' . $url . '">ICI</a>');
-
                 $mailer->send($email);
 
                 $this->addFlash('success', 'Un email vous a été envoyé');
@@ -204,7 +209,7 @@ class ClientController extends AbstractController
     public function reset_password($token, ClientRepository $client, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         if ($this->getUser()) {
-            $this->addFlash('error', 'déjà connecté!');
+            $this->addFlash('danger', 'déjà connecté!');
             return $this->redirectToRoute('index');
         }
         $form = $this->createForm(ResetPasswordType::class);

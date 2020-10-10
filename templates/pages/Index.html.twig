@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Accueil{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     <script src="{{ asset('js/index.js') }}"></script>
@@ -28,7 +29,7 @@
             <i class="fa fa-large fa-arrow-up fa-2" aria-hidden="true"></i>
         </a>
     </div>
-    <div class="container p-5" id="liste_figure">
+    <div class="container pt-5" id="liste_figure">
         <div class="row">
             {% if figures is not empty %}
                 {%  set hide = '' %}

@@ -45,32 +45,4 @@ class HomeController extends AbstractController
 
         return $this->render('pages/index.html.twig', ['current_menu' => 'index', 'figures' => $query_figure]);
     }
-
-    /**
-     * @Route("/fixture", name="fixture")
-     * @return Response
-     */
-    public function fixture(MailerInterface $mailer): Response
-    {
-
-        $email = (new Email())
-        ->from('fexus.j.sebastien@gmail.com')
-        ->to('jseb.1999@outlook.fr')
-        ->subject('test')
-        ->text('Sending emails is fun again!');
-
-        $mailer->send($email);
-
-        // $client = new ClientEntity();
-        // $client->setUsername('John Doe')
-        // ->setEmail('johndoe@gmail.com')
-        // // mdp = test
-        // ->setPassword(' $argon2id$v=19$m=65536,t=4,p=1$TDhJYmlqcy5OQWppazNoRg$raFEzp5vdih+DL+9ocequVUBV7NsuHzq7iLmX1lIf2s');
-
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($client);
-        // $em->flush();
-        dd("mail envoyé");
-        return $this->render('pages/index.html.twig', ['current_menu' => 'index', 'tab_query' => []]);
-    }
 }

@@ -2,14 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ForgotPasswordType extends AbstractType
 {
@@ -21,7 +19,17 @@ class ForgotPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email', null, [
+                'empty_data' => '',
+                'constraints' => [
+                    new Email([
+                        'message' => "Merci d'entrer une Email valide!",
+                    ]),
+                    new NotBlank([
+                        'message' => "Merci d'entrer votre Email!",
+                    ])
+                ]
+            ])
         ;
     }
 

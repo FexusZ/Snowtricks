@@ -1,18 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
     {{ parent() }}
+    {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %} 
     <div class="container registration">
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <h1 class="mt-5 text-center">Connexion</h1>
                 <form method="post" class="">
                     
-                    {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
+                    
 
                     {% if app.user %}
                         <div class="mb-3">
@@ -38,7 +39,7 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="_remember_me"> Remember me
+                                        <input type="checkbox" name="_remember_me"> Se souvenir de moi
                                     </label>
                                 </div>   
                             </div>   
@@ -48,7 +49,7 @@
 
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" formnovalidate="">Se connecter</button>
 
                        <div class='mt-5 mb-3 text-muted text-center'>
                            Pas encore de compte ? <a href="{{ path('app.register') }}">Créer un compte</a>

@@ -39,4 +39,6 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/figure/create, roles: ROLE_USER }
         - { path: ^/figure/edit, roles: ROLE_USER }
+        - { path: ^/figure/image, roles: ROLE_USER }
+        - { path: ^/figure/video, roles: ROLE_USER }
         - { path: ^/logout, roles: ROLE_USER }

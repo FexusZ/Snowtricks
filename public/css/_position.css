@@ -12,11 +12,6 @@
     top: 95%;
     left: 95%;
 }
-@media screen and (max-width: 768px) {
-    .bottom-right {
-        left: 90%;
-    }
-}
 .top-center {
     position: absolute;
     top: 8px;
@@ -41,6 +36,32 @@
 .ml-responsive{
     margin-right: 0 !important;
 }
+.fixed-navbar{
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+.navbar-expand {
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+}
+.alert {
+    z-index: 1000;
+}
+@media screen and (max-width: 768px) {
+    .bottom-right {
+        left: 90%;
+        top: 85%;
+    }
+}
+@media screen and (max-width: 991px) and (min-width: 769px) {
+    .bottom-right {
+        top: 90%;
+    }
+}
 @media screen and (min-width: 992px) {
     .registration {
         margin-top: 10rem;
@@ -57,43 +78,6 @@
         margin-top: 6rem!important;
     }
 }
-@media screen and (max-width: 991px) {
-    .registration {
-        margin-top: 0rem;
-        margin-bottom: 0rem;
-    }
-    .mt-5-responsive{
-        margin-top: 0rem!important;
-    }
-
-    .mb-4-responsive{
-        margin-bottom: 6.5rem!important;
-    }
-    .mt-6{
-        margin-top: 0rem!important;
-    }
-}
-.fixed-navbar{
-    position: fixed;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-}
-@media screen and (min-width: 992px) {
-    .fixed-navbar{
-        top: 0;
-    }
-    .fa-nav{
-        display: none;
-    }
-    .alert {
-        top: 4rem;
-        margin-bottom: 0rem !important;
-        position: absolute;
-        width: 100%;
-    }
-}
-
 @media screen and (max-width: 991px) {
     .alert {
         top: 0rem;
@@ -114,16 +98,38 @@
     .text-nav{
         display: none;
     }
-}
+    .registration {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+    }
+    .mt-5-responsive{
+        margin-top: 0rem!important;
+    }
 
+    .mb-4-responsive{
+        margin-bottom: 6.5rem!important;
+    }
+    .mt-6{
+        margin-top: 0rem!important;
+    }
+    
+}
+@media screen and (min-width: 992px) {
+    .fixed-navbar{
+        top: 0;
+    }
+    .fa-nav{
+        display: none;
+    }
+    .alert {
+        top: 4rem;
+        margin-bottom: 0rem !important;
+        position: absolute;
+        width: 100%;
+    }
+}
 @media (max-width: 1199px){
     .mb-sm-5 {
         margin-bottom: 3rem!important;
     }
-}
-.navbar-expand {
-    display: -ms-flexbox!important;
-    display: flex!important;
-    -ms-flex-preferred-size: auto;
-    flex-basis: auto;
 }
