@@ -16,6 +16,7 @@ class VideoType extends AbstractType
         $builder
             ->add('video', CollectionType::class, [
                 'entry_type' => UrlType::class,
+                'empty_data' => '',
                 //'multiple' => true,
                 'allow_add' => true,
                 'label' => ' '

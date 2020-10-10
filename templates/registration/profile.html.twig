@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profile{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container registration">
+        <!-- Registration Form -->
+        <div class="row justify-content-center">         
+            <div class="col-md-6">
+                <h1 class="mb-5 mt-5 text-center">Profile</h1>
+                {{ form_start(form) }}
+                    <div class="form-group file_form_css">
+                    {% if app.user.image %}
+                        <img src="{{ asset('uploads') }}/{{ app.user.image }}" class='image_profil_position'>
+                    {% else %}
+                        <img src="{{ asset('uploads') }}/default_profil.jpg" class='image_profil_position'>
+                    {% endif %} 
+                        {{ form_widget(form.profile_picture) }}
+                    </div>
+                     <div class="form-group">
+                        {{ form_row(form.first_name) }}
+                    </div>
+
+                    <div class="form-group ">
+                        {{ form_row(form.last_name) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.email) }}
+                    </div>
+                    <div class="form-group mt-5 text-center">
+                        <button type="submit" formnovalidate class="btn btn-lg btn-primary btn-block">Modifier</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <!-- End Registration Form -->
+    </div>
+{% endblock %}

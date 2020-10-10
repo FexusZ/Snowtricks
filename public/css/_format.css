@@ -23,13 +23,24 @@
 .rounded-app{
     border-radius: 1rem !important;
 }
-html,
-body {
-    height: 100%;
-}
 .border-radius-solid{
 	border-radius: 0.625rem;
 	border:solid 1px;
+}
+.fa-3{
+    font-size: 4em;
+}
+.fa-1 {
+    font-size: 2em;
+}
+
+.images_round {
+    border: solid 1px;
+    border-radius: 15rem;
+    width: 60px;
+    height: 60px;
+    /*vertical-align: baseline;*/
+    vertical-align: text-top;
 }
 /*@media (min-width: 1200px) {
 	.col-xl-4{

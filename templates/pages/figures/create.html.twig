@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
+{% block title %}Création de figure{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <script src="{{ asset('js/figure.js') }}"></script>
 {% endblock %}
 {% block body %}
-    <div class="jumbotron text-center mt-5">
+    <div class="jumbotron text-center mt-5-responsive">
         <h1> Création de figure</h1>
     </div>
     {{ parent() }}
-    <div class="container mt-2 mb-4">
+    <div class="container mt-2 mb-4-responsive">
         {{ form_start(form) }}
         {{ form_row(form.figure) }}
         {{ form_row(form.description) }}

@@ -37,10 +37,12 @@ class FigureController extends AbstractController
 
             foreach ($request->files->get('figure')['images']['image'] as $file) {
                 $image = new Image;
-                $file_name = md5(uniqid()). '.'.$file->guessExtension();
-                $file->move($upload_file, $file_name);
-                $image->setImage($file_name);
-                $figure->addImage($image);
+                if ($image->checkImage($file)) {
+                    $file_name = md5(uniqid()). '.'.$file->guessExtension();
+                    $file->move($upload_file, $file_name);
+                    $image->setImage($file_name);
+                    $figure->addImage($image);
+                }
             }
             foreach ($request->request->get('figure')['videos']['video'] as $file) {
                 $video = new Video;
@@ -58,7 +60,8 @@ class FigureController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'Figure modifié');
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('figure.edit', ['id' => $figure->getId()]);
+
         }
 
         return $this->render('pages/figures/edit.html.twig', ['current_menu' => 'figures.listes', 'form' => $form->createView(), 'figure' => $figure]);
@@ -66,7 +69,7 @@ class FigureController extends AbstractController
 
     /**
      * @param Figures $figure
-     * @Route("/figure/show/{id<[0-9]+>}", name="figure.show")
+     * @Route("/figure/details/{id<[0-9]+>}", name="figure.show")
      * @return Response
      */
     public function show(Figures $figure, Request $request): Response
@@ -84,8 +87,7 @@ class FigureController extends AbstractController
             $em->persist($commentaire);
             $em->flush();
             $this->addFlash('info', 'Commentaire ajouté!');
-            unset($request);
-            $this->redirectToRoute('figure.show', [
+            return $this->redirectToRoute('figure.show', [
                 'id' => $figure->getId()
             ]);
         }
@@ -173,7 +175,7 @@ class FigureController extends AbstractController
      */
     public function imageUpdate(Request $request, Image $image): Response
     {
-        if (($this->isCsrfTokenValid('update_image' . $image->getId(), $request->get('_token')))) {
+        if ( ($this->isCsrfTokenValid('update_image' . $image->getId(), $request->get('_token'))) && $request->files->get('image') && $request->request->get('old_image')) {
             $upload_file = $this->getParameter('upload_directory');
             $file_name = $request->request->get('old_image');
 
@@ -194,7 +196,7 @@ class FigureController extends AbstractController
      */
     public function imageDelete(Request $request, Image $image): Response
     {
-        if (($this->isCsrfTokenValid('delete_image' . $image->getId(), $request->get('_token')))) {
+        if (($this->isCsrfTokenValid('delete_image' . $image->getId(), $request->get('_token'))) && $image) {
             $em = $this->getDoctrine()->getManager();
             if (file_exists('uploads/'.$image->getImage()))
                 unlink ('uploads/'.$image->getImage());
@@ -222,7 +224,7 @@ class FigureController extends AbstractController
      */
     public function videoUpdate(Request $request, Video $video): Response
     {
-        if (($this->isCsrfTokenValid('update_video' . $video->getId(), $request->get('_token')))) {
+        if (($this->isCsrfTokenValid('update_video' . $video->getId(), $request->get('_token'))) && $request->request->get('video')) {
             $video->setVideo($request->request->get('video'));
             $em = $this->getDoctrine()->getManager();
 
@@ -241,7 +243,7 @@ class FigureController extends AbstractController
      */
     public function videoDelete(Request $request, Video $video): Response
     {
-        if (($this->isCsrfTokenValid('delete_video' . $video->getId(), $request->get('_token')))) {
+        if (($this->isCsrfTokenValid('delete_video' . $video->getId(), $request->get('_token'))) && $video) {
             $em = $this->getDoctrine()->getManager();
 
             $em->remove($video);
@@ -258,7 +260,7 @@ class FigureController extends AbstractController
      */
     public function imagefeatured(Request $request, Image $image): Response
     { 
-        if (($this->isCsrfTokenValid('featured_image' . $image->getId(), $request->get('_token')))) {
+        if (($this->isCsrfTokenValid('featured_image' . $image->getId(), $request->get('_token'))) && $image->getId()) {
             $figure = $image->getIdFigure();
             $figure->setFeaturedImage($image->getId());
             $em = $this->getDoctrine()->getManager();

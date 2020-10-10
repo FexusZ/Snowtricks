@@ -37,6 +37,11 @@ class Client implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 4096,
+     *      minMessage = "Votre mot de passe doit faire au moins {{ limit }} caracteres",
+     * )
      * @Assert\NotBlank(message="Merci d'entrer un mot de passe!")
      */
     private $password;
@@ -54,14 +59,24 @@ class Client implements UserInterface
     private $figures;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
-
-    /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="client", orphanRemoval=true)
      */
     private $commentaires;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $activation_token;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $reset_token;
 
    
 
@@ -69,7 +84,6 @@ class Client implements UserInterface
     {
         $this->figures = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -182,18 +196,6 @@ class Client implements UserInterface
         return $this;
     }
 
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Commentaire[]
      */
@@ -221,6 +223,42 @@ class Client implements UserInterface
                 $commentaire->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activation_token;
+    }
+
+    public function setActivationToken(?string $activation_token): self
+    {
+        $this->activation_token = $activation_token;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->reset_token;
+    }
+
+    public function setResetToken(?string $reset_token): self
+    {
+        $this->reset_token = $reset_token;
 
         return $this;
     }

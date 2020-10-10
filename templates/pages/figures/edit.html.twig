@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
+{% block title %}Modification de figure{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     <script src="{{ asset('js/figure.js') }}"></script>
 {% endblock %}
 {% block body %}
-    <div class="jumbotron text-center mt-5">
+    <div class="jumbotron text-center mt-5-responsive">
         <h1> Edition de figure</h1>
     </div>
     {{ parent() }}
@@ -15,7 +16,7 @@
                 {% for image in figure.images %}
                     <div class="col-md-4 mb-5 ">
                         <div class="card">
-                            <img data-id='{{ image.id }}' data-nom='{{ image.image }}' class='image-change image-height2 w-100' src="{{ asset("uploads") ~ "/" ~ image.image }}">
+                            <img data-id='{{ image.id }}' data-nom='{{ image.image }}' class='image-change image-height2 w-100' src="{{ asset("uploads") ~ "/" ~ image.image }}"">
                             <div class="card-body">
                                 <div class='d-flex'>
                                     <button class="btn btn-outline-info btn-sm btn-trick mr-2" 
@@ -82,7 +83,9 @@
                                         <input type='hidden' name='id_figure' value='{{ figure.id }}'>
                                         <input type="hidden" name="_token" value="{{ csrf_token('update_image' ~ image.id) }}">
 
-                                        <input type="submit">
+                                        <div class="text-right">
+                                            <input type="submit" class="btn btn-primary mt-2" value="Modifier l'image">
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -131,7 +134,7 @@
                                 <div class="modal-body">
                                     <form action="{{ path('figure.video.update', {'id' : video.id}) }}" method="post">
                                         <div class="custom-file">
-                                            <input type="text" name='video'>
+                                            <input type="text" name='video' class='w-100'>
                                         </div>
 
                                         <input type='hidden' name='old_video' value='{{ video.video }}'>
@@ -139,7 +142,9 @@
                                         <input type='hidden' name='id_figure' value='{{ figure.id }}'>
                                         <input type="hidden" name="_token" value="{{ csrf_token('update_video' ~ video.id) }}">
 
-                                        <input type="submit">
+                                        <div class="text-right">
+                                            <input type="submit" class="btn btn-primary mt-2" value="Modifier la vidéo">
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -150,7 +155,7 @@
             </div>
         </div>
     {% endif %}
-    <div class="container mt-5">
+    <div class="container mb-4-responsive">
         {{ form_start(form) }}
         {{ form_row(form.figure) }}
         {{ form_row(form.description) }}
@@ -163,7 +168,7 @@
             </div>
         </div>
         <div class="text-right">
-            <input type="submit" class="btn btn-primary" value="Modifier la figure">
+            <input type="submit" class="btn btn-primary" value="Modifier la figure" formnovalidate="">
         </div>
         {{ form_end(form) }}
     </div>

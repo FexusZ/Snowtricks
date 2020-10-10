@@ -16,10 +16,15 @@ class FigureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('figure')
-            ->add('description')
+            ->add('figure', null, [
+                'empty_data' => ''
+            ])
+            ->add('description', null, [
+                'empty_data' => ''
+            ])
             ->add('groupe', ChoiceType::class,[
-                'choices' => $this->getGroup()
+                'choices' => $this->getGroup(),
+                'empty_data' => 0
             ])
             ->add('images', ImageType::class, [
                 'mapped' => false,

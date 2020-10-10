@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentaireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentaireRepository::class)
@@ -19,6 +20,7 @@ class Commentaire
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Merci d'entrer un commentaire!")
      */
     private $commentaire;
 
@@ -46,7 +48,7 @@ class Commentaire
 
     public function getCommentaire(): ?string
     {
-        return $this->commentaire;
+        return nl2br($this->commentaire);
     }
 
     public function setCommentaire(string $commentaire): self
