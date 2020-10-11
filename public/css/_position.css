@@ -64,13 +64,16 @@
 }
 @media screen and (min-width: 992px) {
     .registration {
+        margin-top: 5rem;
+        margin-bottom: 3rem;
+    }
+    .login {
         margin-top: 10rem;
         margin-bottom: 3rem;
     }
     .mt-5-responsive{
         margin-top: 3rem!important;
     }
-
     .mb-4-responsive{
         margin-bottom: 1.5rem!important;
     }
@@ -99,6 +102,10 @@
         display: none;
     }
     .registration {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+    }
+    .login {
         margin-top: 0rem;
         margin-bottom: 0rem;
     }

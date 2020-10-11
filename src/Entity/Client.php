@@ -37,12 +37,6 @@ class Client implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(
-     *      min = 6,
-     *      max = 4096,
-     *      minMessage = "Votre mot de passe doit faire au moins {{ limit }} caracteres",
-     * )
-     * @Assert\NotBlank(message="Merci d'entrer un mot de passe!")
      */
     private $password;
 

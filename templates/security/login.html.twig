@@ -5,9 +5,9 @@
 {% block body %}
     {{ parent() }}
     {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %} 
-    <div class="container registration">
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %} 
+    <div class="container login">
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <h1 class="mt-5 text-center">Connexion</h1>
