@@ -34,6 +34,6 @@ Réalisation d'un site en php/Symfony (Snowtricks)
 		* Contrôleur : Gère la liaison entre Modèles et Vues, et gère toute la logique. (Dossier Controller)
 	* Le fichier .env contient des paramètres d'environnement.
 ### Lien Codacy
-* https://app.codacy.com/manual/FexusZ/Projet_5/dashboard?bid=17711610
+* <a href="https://codeclimate.com/github/FexusZ/Snowtricks/maintainability"><img src="https://api.codeclimate.com/v1/badges/8d0914543f2e2521aa1e/maintainability" /></a>
 ### V.1.0.0
 * Initial release
