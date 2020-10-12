@@ -9,19 +9,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
-
 use \App\Repository\ClientRepository;
 use \App\Entity\Client as ClientEntity;
-
 use \App\Entity\Figures;
 use \App\Entity\Image;
 use \App\Entity\Video;
 use \App\Form\FigureType;
 use Symfony\Component\Security\Core\User\UserInterface;
-
-
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+
+
+use Symfony\Component\HttpFoundation\File\File;
 
 class HomeController extends AbstractController
 {
