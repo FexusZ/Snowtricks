@@ -22,15 +22,22 @@ use Symfony\Component\Mime\Email;
 
 use Symfony\Component\HttpFoundation\File\File;
 
+
+
+
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class HomeController extends AbstractController
 {
     /**
      * @var ClientRepository
      */
     private $client;
-    public function __construct(ClientRepository $client)
+    public function __construct(ClientRepository $client, UserPasswordEncoderInterface $encoder, $upload_directory)
     {
         $this->client = $client;
+        $this->upload_directory = $upload_directory;
+        $this->encoder = $encoder;
     }
 
     /**
