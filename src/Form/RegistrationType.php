@@ -12,13 +12,26 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
+/**
+ * Class RegistrationType
+ * @package App\Form
+ */
 class RegistrationType extends AbstractType
 {
 
+    /**
+     * RegistrationType constructor.
+     * @param Security $security
+     */
     public function __construct(Security $security)
     {
         $this->security = $security;
-    } 
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -61,6 +74,9 @@ class RegistrationType extends AbstractType
         }
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

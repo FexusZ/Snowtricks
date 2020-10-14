@@ -14,11 +14,18 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class FiguresRepository extends ServiceEntityRepository
 {
+    /**
+     * FiguresRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Figures::class);
     }
 
+    /**
+     * @return int|mixed|string
+     */
     public function findAllFigures()
     {
         $entityManager = $this->getEntityManager();

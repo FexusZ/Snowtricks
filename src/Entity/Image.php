@@ -24,7 +24,13 @@ class Image
      */
     private $image;
 
+    /**
+     * @var
+     */
     private $imageType;
+    /**
+     * @var string[]
+     */
     private $type_image = ['image/jpeg', 'image/gif', 'image/png', 'image/bmp'];
     /**
      * @ORM\ManyToOne(targetEntity=Figures::class, inversedBy="images")
@@ -32,20 +38,33 @@ class Image
      */
     private $id_figure;
 
+    /**
+     * Image constructor.
+     */
     public function  __construct()
     {
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getImage()
     {
         return $this->image;
     }
 
+    /**
+     * @param $image
+     * @return $this
+     */
     public function setImage($image): self
     {
         $this->image = $image;
@@ -53,6 +72,10 @@ class Image
         return $this;
     }
 
+    /**
+     * @param $image
+     * @return bool
+     */
     public function checkImage($image): bool
     {
         if (in_array($image->getMimeType(), $this->type_image) ){
@@ -61,11 +84,18 @@ class Image
         return false;
     }
 
+    /**
+     * @return Figures|null
+     */
     public function getIdFigure(): ?Figures
     {
         return $this->id_figure;
     }
 
+    /**
+     * @param Figures|null $id_figure
+     * @return $this
+     */
     public function setIdFigure(?Figures $id_figure): self
     {
         $this->id_figure = $id_figure;

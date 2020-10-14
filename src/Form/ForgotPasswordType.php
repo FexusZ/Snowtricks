@@ -9,13 +9,26 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Class ForgotPasswordType
+ * @package App\Form
+ */
 class ForgotPasswordType extends AbstractType
 {
 
+    /**
+     * ForgotPasswordType constructor.
+     * @param Security $security
+     */
     public function __construct(Security $security)
     {
         $this->security = $security;
-    } 
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -33,6 +46,9 @@ class ForgotPasswordType extends AbstractType
         ;
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         

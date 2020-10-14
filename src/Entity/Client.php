@@ -27,6 +27,11 @@ class Client implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Merci d'entrer votre prenom!")
      */
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci d'entrer votre prenom!")
+     */
     private $first_name;
 
     /**
@@ -72,30 +77,36 @@ class Client implements UserInterface
      */
     private $reset_token;
 
-   
 
+    /**
+     * Client constructor.
+     */
     public function __construct()
     {
         $this->figures = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId($id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
+    /**
+     * @return string|null
+     */
     public function getFirstName(): ?string
     {
         return $this->first_name;
     }
 
+    /**
+     * @param string $first_name
+     * @return $this
+     */
     public function setFirstName(string $first_name): self
     {
         $this->first_name = $first_name;
@@ -103,11 +114,18 @@ class Client implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getLastName(): ?string
     {
         return $this->last_name;
     }
 
+    /**
+     * @param string $last_name
+     * @return $this
+     */
     public function setLastName(string $last_name): self
     {
         $this->last_name = $last_name;
@@ -115,16 +133,26 @@ class Client implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getUsername(): ?string
     {
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password =  $password;
@@ -132,26 +160,43 @@ class Client implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
+
+    /**
+     * @return string[]
+     */
     public function getRoles()
     {
         return array('ROLE_USER');
     }
 
+    /**
+     *
+     */
     public function eraseCredentials()
     {
     }
 
+    /**
+     * @return string|null
+     */
     public function getSalt()
     {
         // you *may* need a real salt depending on your encoder
@@ -167,6 +212,10 @@ class Client implements UserInterface
         return $this->figures;
     }
 
+    /**
+     * @param Figures $figure
+     * @return $this
+     */
     public function addFigure(Figures $figure): self
     {
         if (!$this->figures->contains($figure)) {
@@ -177,6 +226,10 @@ class Client implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Figures $figure
+     * @return $this
+     */
     public function removeFigure(Figures $figure): self
     {
         if ($this->figures->contains($figure)) {
@@ -198,6 +251,10 @@ class Client implements UserInterface
         return $this->commentaires;
     }
 
+    /**
+     * @param Commentaire $commentaire
+     * @return $this
+     */
     public function addCommentaire(Commentaire $commentaire): self
     {
         if (!$this->commentaires->contains($commentaire)) {
@@ -208,6 +265,10 @@ class Client implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Commentaire $commentaire
+     * @return $this
+     */
     public function removeCommentaire(Commentaire $commentaire): self
     {
         if ($this->commentaires->contains($commentaire)) {
@@ -221,11 +282,18 @@ class Client implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getActivationToken(): ?string
     {
         return $this->activation_token;
     }
 
+    /**
+     * @param string|null $activation_token
+     * @return $this
+     */
     public function setActivationToken(?string $activation_token): self
     {
         $this->activation_token = $activation_token;
@@ -233,11 +301,18 @@ class Client implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getImage(): ?string
     {
         return $this->image;
     }
 
+    /**
+     * @param string|null $image
+     * @return $this
+     */
     public function setImage(?string $image): self
     {
         $this->image = $image;
@@ -245,11 +320,18 @@ class Client implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getResetToken(): ?string
     {
         return $this->reset_token;
     }
 
+    /**
+     * @param string|null $reset_token
+     * @return $this
+     */
     public function setResetToken(?string $reset_token): self
     {
         $this->reset_token = $reset_token;

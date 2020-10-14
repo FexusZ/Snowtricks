@@ -18,6 +18,10 @@ use \App\Form\VideoType;
 use \App\Form\CommentaireType;
 
 
+/**
+ * Class FigureController
+ * @package App\Controller
+ */
 class FigureController extends AbstractController
 {
     /**

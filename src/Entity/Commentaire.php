@@ -41,16 +41,26 @@ class Commentaire
      */
     private $created_at;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCommentaire(): ?string
     {
         return nl2br($this->commentaire);
     }
 
+    /**
+     * @param string $commentaire
+     * @return $this
+     */
     public function setCommentaire(string $commentaire): self
     {
         $this->commentaire = $commentaire;
@@ -58,11 +68,18 @@ class Commentaire
         return $this;
     }
 
+    /**
+     * @return Figures|null
+     */
     public function getFigure(): ?Figures
     {
         return $this->figure;
     }
 
+    /**
+     * @param Figures|null $figure
+     * @return $this
+     */
     public function setFigure(?Figures $figure): self
     {
         $this->figure = $figure;
@@ -70,11 +87,18 @@ class Commentaire
         return $this;
     }
 
+    /**
+     * @return Client|null
+     */
     public function getClient(): ?Client
     {
         return $this->client;
     }
 
+    /**
+     * @param Client|null $client
+     * @return $this
+     */
     public function setClient(?Client $client): self
     {
         $this->client = $client;
@@ -82,11 +106,18 @@ class Commentaire
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
+    /**
+     * @param \DateTimeInterface $created_at
+     * @return $this
+     */
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
@@ -94,7 +125,10 @@ class Commentaire
         return $this;
     }
 
-     public function updateTimestamps()
+    /**
+     * @throws \Exception
+     */
+    public function updateTimestamps()
     {
         $this->setCreatedAt( new \DateTime(null, new \DateTimeZone('Europe/Paris')) );
     }

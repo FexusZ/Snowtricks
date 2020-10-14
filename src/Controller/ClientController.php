@@ -17,6 +17,11 @@ use \App\Form\ResetPasswordType;
 use \App\Entity\Client as ClientEntity;
 use \App\Repository\ClientRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+/**
+ * Class ClientController
+ * @package App\Controller
+ */
 class ClientController extends AbstractController
 {
     /**

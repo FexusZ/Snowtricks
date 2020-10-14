@@ -10,6 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use \App\Entity\Figures;
 
+/**
+ * Class HomeController
+ * @package App\Controller
+ */
 class HomeController extends AbstractController
 {
     /**

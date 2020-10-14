@@ -11,13 +11,26 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
+/**
+ * Class ResetPasswordType
+ * @package App\Form
+ */
 class ResetPasswordType extends AbstractType
 {
 
+    /**
+     * ResetPasswordType constructor.
+     * @param Security $security
+     */
     public function __construct(Security $security)
     {
         $this->security = $security;
-    } 
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -52,6 +65,9 @@ class ResetPasswordType extends AbstractType
         ;
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         

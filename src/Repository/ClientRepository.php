@@ -15,6 +15,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class ClientRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    /**
+     * ClientRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Client::class);
@@ -22,6 +26,12 @@ class ClientRepository extends ServiceEntityRepository implements PasswordUpgrad
 
     /*
      * Used to upgrade (rehash) the user's password automatically over time
+     */
+    /**
+     * @param UserInterface $user
+     * @param string $newEncodedPassword
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {

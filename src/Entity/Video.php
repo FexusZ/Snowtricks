@@ -30,16 +30,26 @@ class Video
      */
     private $id_figure;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getVideo()
     {
         return $this->video;
     }
 
+    /**
+     * @param $video
+     * @return $this
+     */
     public function setVideo($video): self
     {
         $this->video = $video;
@@ -47,11 +57,18 @@ class Video
         return $this;
     }
 
+    /**
+     * @return Figures|null
+     */
     public function getIdFigure(): ?Figures
     {
         return $this->id_figure;
     }
 
+    /**
+     * @param Figures|null $id_figure
+     * @return $this
+     */
     public function setIdFigure(?Figures $id_figure): self
     {
         $this->id_figure = $id_figure;

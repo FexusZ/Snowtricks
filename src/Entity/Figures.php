@@ -77,6 +77,9 @@ class Figures
      */
     private $commentaires;
 
+    /**
+     * Figures constructor.
+     */
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -92,16 +95,26 @@ class Figures
         'Groupe 2',
     ];
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFigure(): ?string
     {
         return $this->figure;
     }
 
+    /**
+     * @param string $figure
+     * @return $this
+     */
     public function setFigure(string $figure): self
     {
         $this->figure = $figure;
@@ -109,11 +122,18 @@ class Figures
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param string $description
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -121,11 +141,18 @@ class Figures
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getGroupe(): ?int
     {
         return $this->groupe;
     }
 
+    /**
+     * @param int $groupe
+     * @return $this
+     */
     public function setGroupe(int $groupe): self
     {
         $this->groupe = $groupe;
@@ -133,17 +160,27 @@ class Figures
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getFeaturedImage(): ?int
     {
         return $this->featured_image;
     }
 
+    /**
+     * @param int $featured_image
+     * @return $this
+     */
     public function setFeaturedImage(int $featured_image): self
     {
         $this->featured_image = $featured_image;
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getGroupeText(): ?string
     {
         return self::GROUP[$this->groupe];
@@ -157,6 +194,10 @@ class Figures
         return $this->images;
     }
 
+    /**
+     * @param Image $image
+     * @return $this
+     */
     public function addImage(Image $image): self
     {
         if (!$this->images->contains($image)) {
@@ -167,6 +208,10 @@ class Figures
         return $this;
     }
 
+    /**
+     * @param Image $image
+     * @return $this
+     */
     public function removeImage(Image $image): self
     {
         if ($this->images->contains($image)) {
@@ -188,6 +233,10 @@ class Figures
         return $this->videos;
     }
 
+    /**
+     * @param Video $video
+     * @return $this
+     */
     public function addVideo(Video $video): self
     {
         if (!$this->videos->contains($video)) {
@@ -198,6 +247,10 @@ class Figures
         return $this;
     }
 
+    /**
+     * @param Video $video
+     * @return $this
+     */
     public function removeVideo(Video $video): self
     {
         if ($this->videos->contains($video)) {
@@ -211,11 +264,18 @@ class Figures
         return $this;
     }
 
+    /**
+     * @return client|null
+     */
     public function getIdClient(): ?client
     {
         return $this->id_client;
     }
 
+    /**
+     * @param client|null $id_client
+     * @return $this
+     */
     public function setIdClient(?client $id_client): self
     {
         $this->id_client = $id_client;
@@ -223,11 +283,18 @@ class Figures
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
+    /**
+     * @param \DateTimeInterface $created_at
+     * @return $this
+     */
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
@@ -235,11 +302,18 @@ class Figures
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
     }
 
+    /**
+     * @param \DateTimeInterface $updated_at
+     * @return $this
+     */
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
@@ -247,6 +321,9 @@ class Figures
         return $this;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function updateTimestamps()
     {
         if ($this->getCreatedAt() === null) {
@@ -263,6 +340,10 @@ class Figures
         return $this->commentaires;
     }
 
+    /**
+     * @param Commentaire $commentaire
+     * @return $this
+     */
     public function addCommentaire(Commentaire $commentaire): self
     {
         if (!$this->commentaires->contains($commentaire)) {
@@ -273,6 +354,10 @@ class Figures
         return $this;
     }
 
+    /**
+     * @param Commentaire $commentaire
+     * @return $this
+     */
     public function removeCommentaire(Commentaire $commentaire): self
     {
         if ($this->commentaires->contains($commentaire)) {
