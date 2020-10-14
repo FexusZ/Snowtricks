@@ -258,7 +258,7 @@ class FigureController extends AbstractController
      * @Route("/figure/image/featured/{id<[0-9]+>}", name="figure.image.featured", methods="POST||GET")
      * @return Response
      */
-    public function imagefeatured(Request $request, Image $image): Response
+    public function imageFeatured(Request $request, Image $image): Response
     { 
         if (($this->isCsrfTokenValid('featured_image' . $image->getId(), $request->get('_token'))) && $image->getId()) {
             $figure = $image->getIdFigure();

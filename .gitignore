@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> e15f6ff557953ad0731ab214689daeb5f8c91264
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

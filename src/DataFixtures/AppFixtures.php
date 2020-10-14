@@ -18,6 +18,7 @@ class AppFixtures extends Fixture
 		$this->upload_directory = $upload_directory;
 	    $this->encoder = $encoder;
 	}
+    
     public function load(ObjectManager $manager)
     {
         $client = new Client();

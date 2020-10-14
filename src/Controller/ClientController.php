@@ -135,7 +135,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/verify/email/{token}", name="app.check_account")
      */
-    public function check_account($token, ClientRepository $client): Response
+    public function checkAccount($token, ClientRepository $client): Response
     {
         if ($this->getUser()) {
             $this->addFlash('error', 'déjà connecté!');
@@ -160,7 +160,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/forgot_password", name="app.forgot_password")
      */
-    public function forgot_password(Request $request, MailerInterface $mailer, ClientRepository $client)
+    public function forgotPassword(Request $request, MailerInterface $mailer, ClientRepository $client)
     {
         if ($this->getUser()) {
             $this->addFlash('danger', 'déjà connecté!');
@@ -206,7 +206,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/reset_password/{token}", name="app.reset_password")
      */
-    public function reset_password($token, ClientRepository $client, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function resetPassword($token, ClientRepository $client, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         if ($this->getUser()) {
             $this->addFlash('danger', 'déjà connecté!');
