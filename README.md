@@ -27,6 +27,7 @@ Réalisation d'un site en php/Symfony (Snowtricks)
 	* Mettre en place la base de données :
 		* Par ligne de commande, passer le serveur en mode developpeur pour acceder au maker de symfony, faite un php bin/console ou symfony console make:migration, puis un doctrine:migrations:migrate, pour avoir un jeu de données de base vous pouvez aussi executer la commande "php bin/console doctrine:fixtures:load", vous pouvez repasser en environnement de production.
 		* Sinon, directement en bdd, créé une nouvelle base de données, et importer la base de données fournis avec le projet (le fichier contient un jeu de données avec 10 post)
+	* Pour que la fonction se rappeler de moi fonctionne, vous devrai aussi modifier le fichier TokenBasedRememberMeServices.php (namespace : namespace Symfony\Component\Security\Http\RememberMe) et modifier la fonction "onLoginSuccess", pour modifier la ligne "generateCookieValue" en y mettant "$user->getEmail()" a la place de "$user->getUsername()"
 * Explication :
 	* Le projet suis une architecture MVC :
 		* Modèle : Va chercher les données brute. (Dans notre cas se sont les dossiers Entity et Repository)
