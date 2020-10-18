@@ -128,8 +128,8 @@ class FigureController extends AbstractController
             }
             
             foreach ($request->request->get('figure')['videos']['video'] as $file) {
-                $upload = new Video;
                 if (strpos($file, 'https://www.youtube.com/embed') !== false || strpos($file, 'https://www.dailymotion.com/embed') !== false) {
+                    $upload = new Video;
                     $upload->setVideo($file);
                     $figure->addVideo($upload);
                 } elseif ($file !== '') {

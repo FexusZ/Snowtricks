@@ -10,7 +10,7 @@ $(function()
 	$(document).on('click', '.hide-image', function()
 	{
 		$(this).hide();
-		$('.show-image').show();
 		$('.show-responsive').hide();
+		$('.show-image').show();
 	});
 });
