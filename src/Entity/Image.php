@@ -25,25 +25,15 @@ class Image
     private $image;
 
     /**
-     * @var
-     */
-    private $imageType;
-    /**
      * @var string[]
      */
     private $type_image = ['image/jpeg', 'image/gif', 'image/png', 'image/bmp'];
+
     /**
      * @ORM\ManyToOne(targetEntity=Figures::class, inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_figure;
-
-    /**
-     * Image constructor.
-     */
-    public function  __construct()
-    {
-    }
 
     /**
      * @return int|null

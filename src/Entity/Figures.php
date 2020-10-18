@@ -78,6 +78,14 @@ class Figures
     private $commentaires;
 
     /**
+     *
+     */
+    CONST GROUP = [
+        'Groupe 1',
+        'Groupe 2',
+    ];
+
+    /**
      * Figures constructor.
      */
     public function __construct()
@@ -86,14 +94,6 @@ class Figures
         $this->videos = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
     }
-
-    /**
-     *
-     */
-    CONST GROUP = [
-        'Groupe 1',
-        'Groupe 2',
-    ];
 
     /**
      * @return int|null
