@@ -42,20 +42,20 @@
                             </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app.logout') }}">
-                                <span class='text-nav'>Logout</span>
+                                <span class='text-nav'>Deconnexion</span>
                                 <i class="fa fa-1 fa-nav fa-sign-out" aria-hidden="true"></i>
                             </a>
                         </li>
                     {% else %}
                             <li class="nav-item {% if current_menu is defined and current_menu == 'app.login' %}active{% endif %}">
                                 <a class="nav-link" href="{{ path('app.login') }}">
-                                    <span class='text-nav'>Login</span>
+                                    <span class='text-nav'>Connexion</span>
                                     <i class="fa fa-1 fa-nav fa-user" aria-hidden="true"></i>
                                 </a>
                             </li>
                            <li class="nav-item {% if current_menu is defined and current_menu == 'app.register' %}active{% endif %}">
                                <a class="nav-link" href="{{ path('app.register') }}">
-                                   <span class='text-nav'>Register</span>
+                                   <span class='text-nav'>Créer un compte</span>
                                    <i class="fa fa-1 fa-nav fa-sign-in" aria-hidden="true"></i>
                                </a>
                            </li>
